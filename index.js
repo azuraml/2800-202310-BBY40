@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+
 const Joi = require("joi");
 
 const expireTime = 1 * 60 * 60 * 1000; //expires after 1 day  (hours * minutes * seconds * millis)
@@ -78,6 +79,13 @@ function sessionValidation(req, res, next) {
 }
 
 
+app.get("/quiz", (req, res) => {
+  res.render('quiz');
+});
+
+app.get("/quiz-end", (req, res) => {
+  res.render("quiz-end");
+});
 
 
 
