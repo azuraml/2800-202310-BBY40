@@ -1,13 +1,25 @@
 document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const optionA = urlParams.get("optionA");
-    const optionB = urlParams.get("optionB");
-    const optionC = urlParams.get("optionC");
-    const optionD = urlParams.get("optionD");
+    const optionA = parseInt(urlParams.get("optionA"));
+    const optionB = parseInt(urlParams.get("optionB"));
+    const optionC = parseInt(urlParams.get("optionC"));
+    const optionD = parseInt(urlParams.get("optionD"));
   
-    document.getElementById("optionA-total").innerText = optionA;
-    document.getElementById("optionB-total").innerText = optionB;
-    document.getElementById("optionC-total").innerText = optionC;
-    document.getElementById("optionD-total").innerText = optionD;
+    let learningStyle = "";
+    let highestOption = Math.max(optionA, optionB, optionC, optionD);
+  
+    if (highestOption === optionA) {
+        learningStyle = "Visual Learner";
+    } else if (highestOption === optionB) {
+        learningStyle = "Auditory Learner";
+    } else if (highestOption === optionC) {
+        learningStyle = "Kinesthetic Learner";
+    } else if (highestOption === optionD) {
+        learningStyle = "Read/Write Learner";
+    }
+  
+    document.getElementById("learning-style").innerText = learningStyle; // Set the learning style to the new element
+});
+$('.container').on('click', function () {
+    $('.card').toggleClass('flipped');
   });
-  
