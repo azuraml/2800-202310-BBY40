@@ -1,0 +1,26 @@
+<%- include("templates/header") %> 
+<section style="background-color: #161513; color: darkgrey;" >
+  <div class="d-flex gap-2 justify-content-center py-5">
+   
+  <form action='/loggingin' method='post' class="text-center">
+    <div class ="form-floating">
+    <input name='email' id="floatingInput" class="form-control" type='text' placeholder='email' >
+    <label for="floatingInput">Email address</label>
+   </div>
+    <div class="form-floating" >
+    <input name='password' id="floatingPassword" class="form-control" type='password' placeholder='password'>
+    <label for="floatingPassword">Password</label>
+</div>
+    <button class="w-100 btn btn-lg btn-primary">Submit</button>
+    </form>
+</div>
+<div class="text-center"> 
+<% if (missing) { %>
+    
+<br> Invalid username/password combination <br>
+ <a class="btn btn-warning rounded-pill px-3" href='/login'>try again</a>
+ <a class="btn btn-warning rounded-pill px-3" href='/reset'>reset password</a>
+ <% } %>
+</div>
+</section>
+<%- include("templates/footer") %> 
