@@ -87,7 +87,9 @@ app.get("/quiz-end", (req, res) => {
   res.render("quiz-end");
 });
 
-
+app.get("/members", (req, res) => {
+  res.render('members');
+});
 
 
 
