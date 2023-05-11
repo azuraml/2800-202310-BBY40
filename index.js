@@ -77,11 +77,9 @@ function sessionValidation(req, res, next) {
   }
 }
 
-
-
-
-
-
+app.get("/", (req, res) => {
+  res.render("start");
+});
 
 app.use(express.static(__dirname + "/public"));
 
