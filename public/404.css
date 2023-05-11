@@ -1,0 +1,7 @@
+body {
+    background: linear-gradient(0deg, rgb(0, 0, 0), rgb(81, 0, 119));
+}
+
+#logoTitle, .nav-link {
+    color: white;
+}
