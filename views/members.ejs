@@ -1,14 +1,23 @@
-<div class="flex-container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="flex-container">
     <div class="flex-slide home">
         <div class="flex-title">Profile</div>
-      
+        <div class="flex-about"><p>Click here to navigate to the About section of the website</p></div>
       </div>
     <div class="flex-slide about">
       <div class="flex-title">AI Tutoring</div>
       <div class="flex-about"><p>Click here to navigate to the About section of the website</p></div>
     </div>
     <div class="flex-slide work">
-      <div class="flex-title">Resources</div>
+      <div class="flex-title"><br>Resources</div>
       <div class="flex-about"><p>Listing relevant snippets of work:</p>
         <ul>
           <li>First piece of work</li>
@@ -17,21 +26,31 @@
         </ul>
       </div>
     </div>
-    <div class="flex-slide contact">
-      <div class="flex-title">Porgress</div>
-          <div class="flex-about">
-            <p>Use the contact form below</p>
-       
-  
+
+<div class="flex-slide contact">
+  <a href="/progress" style="text-decoration: none; color: inherit;">
+    <div class="flex-title">Progress</div>
+    <div class="flex-about">
+      <p>Use the contact form below</p>
+    </div>
+  </a>
+</div>
+
+
       </div>
     </div>
   </div>
+</body>
+</html>
+
 
   <style>
     @import url('https://fonts.googleapis.com/css?family=Raleway');
 
 
-
+ ul{
+  color:white;
+ }
 body {
   margin: 0;
   padding: 0;
@@ -45,7 +64,7 @@ body {
   display: flex;
   overflow: hidden;
   @media screen and (max-width: 768px) {
-    flex-direction: column;
+    flex-direction: row;
   }
 }
 .flex-title {
@@ -115,10 +134,13 @@ body {
 }
 .home {
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1628563694622-5a76957fd09c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW5zdGFncmFtJTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80);
-  background-size: cover;
+  background-color: grey;
+  background-image: url('/profile.png');
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1628563694622-5a76957fd09c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW5zdGFncmFtJTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80); */
+  background-size: 80%;
   background-position: center center;
   background-attachment: fixed;
+
 
 }
 
@@ -215,8 +237,10 @@ body {
 
 
 .about {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://e0.pxfuel.com/wallpapers/975/518/desktop-wallpaper-brain-red-design-black.jpg);
-  background-size: cover;
+
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/tutoring.png');
+
+  background-size: 170%;
   background-position: center center;
   background-attachment: fixed; 
 }
@@ -230,15 +254,17 @@ textarea {
   width: 100%;  
 }
 .contact {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://media.istockphoto.com/id/1207973530/vector/loading-vector-icons.jpg?s=612x612&w=0&k=20&c=jSyUOCTLUYu90qGoELYGqS5sI2jpdNRS2tDv9b67EbU=);
-  background-size: 100%;
+  background-color: black;
+    background-image:  url('/progress.png');
+  background-size: 70%;
   background-position: center center;
   background-attachment: fixed;
 }
 .work {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://w0.peakpx.com/wallpaper/328/274/HD-wallpaper-bad-vibe-sad-sadness.jpg);
-  background-size: 70%;
-  
+  background-color: grey;
+    /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://w0.peakpx.com/wallpaper/328/274/HD-wallpaper-bad-vibe-sad-sadness.jpg); */
+  background-size: 100%;
+  background-image:  url('/support.png');
   background-position: center center;
   background-attachment: fixed;
 }

@@ -159,7 +159,10 @@ app.get("/quiz", (req, res) => {
 		 app.get("/members", (req, res) => {
 	  res.render('members');
 	});
-
+	app.get("/progress", (req, res) => {
+		res.render('progress');
+	  });
+  
 
 app.get('/login', (req,res) => {
 	var missingUsername = req.query.missing;
