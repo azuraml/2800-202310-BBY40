@@ -1,0 +1,51 @@
+<%- include("templates/header") %> 
+<section style="background-color: #161513; color: darkgray;" > 
+<div class="d-flex gap-2 justify-content-center py-5">
+<form action='/submitUser' method='post' class="text-center">
+<div class ="form-floating">  
+<input name='username' class="form-control" id="floatingUsername" type='text' placeholder='username'>
+<label for="floatingUsername">Username</label>
+</div>
+<div class ="form-floating">
+    <input name='email' id="floatingInput" class="form-control" type='text' placeholder='email' >
+    <label for="floatingInput">Email address</label>
+   </div>
+   <div class="form-floating" >
+    <input name='password' id="floatingPassword" class="form-control" type='password' placeholder='password'>
+    <label for="floatingPassword">Password</label>
+</div>
+<button class="w-100 btn btn-lg btn-primary">Submit</button>
+</form>
+</div>
+
+<div class="text-center">
+<% if (missing) { %>
+    
+      <br> username is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a>
+ <% } %>
+ <% if (missings) { %>
+    <br> email is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a> 
+ <% } %>
+ <% if (missingss) { %>
+    
+      <br> password is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a> 
+ <% } %>
+ <% if (ep) { %>
+    
+      <br> email and password is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a>
+ <% } %>
+ <% if (eu) { %>
+
+      <br> username and email is required <br> <a class="btn btn-warning rounded-pill px-3"  href='/signup'>try again</a>
+ <% } %>
+ <% if (up) { %>
+    
+      br> password and username is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a>
+ <% } %>
+ <% if (eup) { %>
+    
+      <br> password,username and email is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a>
+ <% } %>
+</div>
+</section>
+<%- include("templates/footer") %>

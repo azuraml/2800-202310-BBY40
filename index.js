@@ -30,15 +30,15 @@ const node_session_secret = process.env.NODE_SESSION_SECRET;
 var { database } = include("databaseConnection");
 
 const userCollection = database.db(mongodb_database).collection("users");
-
+const userPersonalInfoCollection = database.db(mongodb_database).collection("userPersonalInfo")
 app.set("view engine", "ejs");
 
 const navLinks = [
-  { name: "Home", link: "/" },
-  { name: "signup", link: "/signup" },
-  { name: "login", link: "/login" },
-  { name: "admin", link: "/admin/paths/paths" },
-  { name: "members", link: "/members" },
+  { name: "Homepage", link: "/" },
+  { name: "CreateAccount", link: "/signup" },
+  { name: "Login", link: "/login" },
+  { name: "Profile", link: "/profile" },
+  { name: "logout", link: "/logout" },
 ];
 app.use("/", (req, res, next) => {
   app.locals.navLinks = navLinks;
@@ -77,23 +77,232 @@ function sessionValidation(req, res, next) {
     res.redirect("/login");
   }
 }
+app.get("/", (req, res) => {
+	res.render("homepage");
+  });
 
+app.get('/signup', (req,res) => {
+	var missingUsername = req.query.missing;
+	var missingEmail = req.query.missings;
+	var missingPassword = req.query.missingss;
+	var emailandpassword = req.query.ep;
+	var emailandusername = req.query.eu;
+	var usernameandpassword = req.query.up;
+	var emailandusernameandpassword = req.query.eup;
+	
+	  res.render("signup",{missing: missingUsername, missings: missingEmail, missingss: missingPassword, ep: emailandpassword, eu: emailandusername, up: usernameandpassword, eup:emailandusernameandpassword });
+	});
 
-app.get("/quiz", (req, res) => {
+app.post('/submitUser', async (req,res) => {
+	var email = req.body.email;
+	var username = req.body.username;
+	var password = req.body.password;
+	if (!password && !username && !email) {
+	  return res.redirect("/signup?eup=1");
+	}
+	if (!email && !password) {
+	  return res.redirect("/signup?ep=1");
+	}
+	if (!username && !email) {
+	  return res.redirect("/signup?eu=1");
+	}
+	if (!password && !username) {
+	  return res.redirect("/signup?up=1");
+	}
+	if (!username) {
+	  return res.redirect("/signup?missing=1");
+	}
+	if (!email) {
+	  return res.redirect("/signup?missings=1");
+	}
+	if (!password) {
+	  return res.redirect("/signup?missingss=1");
+	} else {
+	  const schema = Joi.object({
+		username: Joi.string().alphanum().max(20).required(),
+		password: Joi.string().max(20).required(),
+		email: Joi.string().email().required(),
+	  });
+  
+	  const validationResult = schema.validate({ username, password, email });
+	  if (validationResult.error != null) {
+		console.log(validationResult.error);
+		res.redirect("/signup");
+		return; 
+	  }
+  
+	  var hashedPassword = await bcrypt.hash(password, saltRounds);
+  
+	  await userCollection.insertOne({
+		username: username,
+		email: email,
+		password: hashedPassword,
+	  });
+	  console.log("Inserted user");
+	  req.session.authenticated = true;
+	  req.session.username = username;
+	  req.session.cookie.maxAge = expireTime;
+	  var html = "successfully created user";
+	 // res.send(html);
+	 return res.redirect("/Registration") 
+	}
+});
+
+app.get('/login', (req,res) => {
+	var missingUsername = req.query.missing;
+	
+	  res.render("login", {missing: missingUsername});
+});
+app.post('/loggingin', async (req,res) => {
+	// var username = req.body.username;
+	var password = req.body.password;
+	var email = req.body.email;
+	const schema = Joi.string().max(20).required();
+	const validationResult = schema.validate(email);
+	if (validationResult.error != null) {
+	  console.log(validationResult.error);
+	  res.redirect("/login");
+	  return;
+	}
+  
+	const result = await userCollection
+	  .find({ email: email })
+	  .project({ email: 1, password: 1, username:1, user_type: 1, _id: 1 })
+	  .toArray();
+  
+	
+	  app.get("/quiz", (req, res) => {
   res.render('quiz');
 });
 
-app.get("/quiz-end", (req, res) => {
+	console.log(result);
+	if (result.length != 1) {
+	  console.log("user not found");
+	  res.redirect("/login?missing=1");
+	  return;
+	}
+	if (await bcrypt.compare(password, result[0].password)) {
+	  console.log("correct password");
+	  req.session.authenticated = true;
+	  req.session.username = result[0].username;
+	  req.session.cookie.maxAge = expireTime;
+	  req.session.user_type = result[0].user_type;
+	 
+	  res.redirect("/profile");
+	  
+	} else {
+	  console.log("incorrect password");
+	  res.redirect("/login?missing=1");
+	  return;
+	}
+ });
+ app.get("/reset", (req, res) => {
+	res.render("reset");
+  });
+
+  app.post("/resetUserpassword", async (req, res) => {
+	var password = req.body.password;
+	var email = req.body.email;
+	  const schema = Joi.object({
+		email: Joi.string().email().required(),
+		password: Joi.string().max(20).required(),
+	  });
+  
+	  const validationResult = schema.validate({password, email});
+	  if (validationResult.error != null) {
+		console.log(validationResult.error);
+		res.redirect("/signup");
+		return; 
+	  }
+  
+	  var hashedPassword = await bcrypt.hash(password, saltRounds);
+  
+	  await userCollection.updateOne({ email: email }, {$set:{password: hashedPassword}});
+  
+	  console.log("Inserted user");
+	  req.session.password = password;
+	  console.log(password);
+	  console.log(hashedPassword);
+	  var html = "successfully created new password";
+	  res.send(html);
+	 
+	
+  });
+ 
+  app.get("/profile",sessionValidation,async (req, res) => {
+	var username = req.session.username;
+	const result = await userPersonalInfoCollection
+	.find({username: username })
+	.project({ firstname: 1, lastname: 1, address:1, gender: 1, dob:1, course: 1, _id: 1 })
+	.toArray();
+
+	res.render("profile",{firstname: result[0].firstname, lastname: result[0].lastname,
+	address: result[0].address,  gender: result[0].gender, dob: result[0].dob, course: result[0].course  });
+  });
+  
+  app.get("/Registration", (req, res) => {
+	res.render("Registration");
+  });
+  
+  app.post('/addstudentinfo', async (req,res) => {
+	var firstname = req.body.firstname;
+	var lastname = req.body.lastname;
+	var mother = req.body.mother;
+	var father = req.body.father;
+	var address = req.body.address;
+	var gender = req.body.inlineRadioOptions;
+	var dob = req.body.birth;
+	var course = req.body.course;
+    var username = req.session.username;
+	  const schema = Joi.object({
+		firstname: Joi.string(),
+		lastname: Joi.string(),
+		mother: Joi.string(),
+		father: Joi.string(),
+	    address: Joi.string(),
+		gender: Joi.string(),
+        dob: Joi.string(),
+	    course: Joi.string(),
+	});
+  
+	  const validationResult = schema.validate({ firstname, lastname, mother,father, address,gender,dob,course });
+	  if (validationResult.error != null) {
+		console.log(validationResult.error);
+		res.redirect("/signup");
+		return; 
+	  }
+  app.get("/quiz-end", (req, res) => {
   res.render("quiz-end");
 });
 
-app.get("/members", (req, res) => {
+	 app.get("/members", (req, res) => {
   res.render('members');
 });
 
+  
+	  await userPersonalInfoCollection.insertOne({
+		firstname: firstname,
+		lastname: lastname,
+		mother:mother,
+		father: father,
+	    address: address,
+		gender: gender,
+        dob: dob,
+	    course: course,
+	    username: username
+	});
+	  console.log("Inserted user");
+	 
+	 return res.redirect("/profile") 
+	
+});
+  
+  app.get("/logout", (req, res) => {
+	req.session.destroy();
+	res.redirect("/signup");
+  });
 
-
-app.use(express.static(__dirname + "/public"));
+  app.use(express.static(__dirname + "/public"));
 
 app.get("*", (req, res) => {
   res.status(404);
