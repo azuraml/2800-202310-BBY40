@@ -20,6 +20,3 @@ document.addEventListener("DOMContentLoaded", function() {
   
     document.getElementById("learning-style").innerText = learningStyle; // Set the learning style to the new element
 });
-$('.container').on('click', function () {
-    $('.card').toggleClass('flipped');
-  });
