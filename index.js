@@ -148,6 +148,19 @@ app.post('/submitUser', async (req,res) => {
 	}
 });
 
+
+app.get("/quiz", (req, res) => {
+	res.render('quiz');
+  });
+  app.get("/quiz-end", (req, res) => {
+	  res.render("quiz-end");
+	});
+	
+		 app.get("/members", (req, res) => {
+	  res.render('members');
+	});
+
+
 app.get('/login', (req,res) => {
 	var missingUsername = req.query.missing;
 	
@@ -171,9 +184,6 @@ app.post('/loggingin', async (req,res) => {
 	  .toArray();
   
 	
-	  app.get("/quiz", (req, res) => {
-  res.render('quiz');
-});
 
 	console.log(result);
 	if (result.length != 1) {
@@ -271,13 +281,7 @@ app.post('/loggingin', async (req,res) => {
 		res.redirect("/signup");
 		return; 
 	  }
-  app.get("/quiz-end", (req, res) => {
-  res.render("quiz-end");
-});
 
-	 app.get("/members", (req, res) => {
-  res.render('members');
-});
 
   
 	  await userPersonalInfoCollection.insertOne({
@@ -297,6 +301,9 @@ app.post('/loggingin', async (req,res) => {
 	
 });
   
+
+
+
   app.get("/logout", (req, res) => {
 	req.session.destroy();
 	res.redirect("/signup");
