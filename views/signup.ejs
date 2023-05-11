@@ -1,51 +1,88 @@
 <%- include("templates/header") %> 
-<section style="background-color: #161513; color: darkgray;" > 
-<div class="d-flex gap-2 justify-content-center py-5">
-<form action='/submitUser' method='post' class="text-center">
-<div class ="form-floating">  
-<input name='username' class="form-control" id="floatingUsername" type='text' placeholder='username'>
-<label for="floatingUsername">Username</label>
-</div>
-<div class ="form-floating">
-    <input name='email' id="floatingInput" class="form-control" type='text' placeholder='email' >
-    <label for="floatingInput">Email address</label>
-   </div>
-   <div class="form-floating" >
-    <input name='password' id="floatingPassword" class="form-control" type='password' placeholder='password'>
-    <label for="floatingPassword">Password</label>
-</div>
-<button class="w-100 btn btn-lg btn-primary">Submit</button>
-</form>
-</div>
+<div class="card-body p-md-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-<div class="text-center">
-<% if (missing) { %>
-    
-      <br> username is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a>
- <% } %>
- <% if (missings) { %>
-    <br> email is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a> 
- <% } %>
- <% if (missingss) { %>
-    
-      <br> password is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a> 
- <% } %>
- <% if (ep) { %>
-    
-      <br> email and password is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a>
- <% } %>
- <% if (eu) { %>
+        <p class="text-center h1 fw-bold mb-5 mt-4">Sign up</p>
 
-      <br> username and email is required <br> <a class="btn btn-warning rounded-pill px-3"  href='/signup'>try again</a>
- <% } %>
- <% if (up) { %>
-    
-      br> password and username is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a>
- <% } %>
- <% if (eup) { %>
-    
-      <br> password,username and email is required <br> <a class="btn btn-warning rounded-pill px-3" href='/signup'>try again</a>
- <% } %>
-</div>
-</section>
-<%- include("templates/footer") %>
+        <form action='/submituser' method='post'>
+
+          <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+               <label for="floatingUsername">Username</label>
+               <input name='username' class="form-control" id="floatingUsername" type='text' placeholder='Username'>
+      
+               
+
+            <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 71.2px;"></div><div class="form-notch-trailing"></div></div></div>
+          </div>
+
+          <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+               <label for="floatingInput">Email address</label>
+               <input name='email' id="floatingInput" class="form-control" type='text' placeholder='Email' >
+          
+            
+            <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 68.8px;"></div><div class="form-notch-trailing"></div></div></div>
+          </div>
+
+          <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+               <label for="floatingPassword">Password</label>
+               <input name='password' id="floatingPassword" class="form-control" type='password' placeholder='Password'>
+         
+
+            <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 64.8px;"></div><div class="form-notch-trailing"></div></div></div>
+          </div>
+
+
+
+
+          <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+            <button class="btn btn-primary btn-lg">Register</button>
+          </div>
+          <div class="error-messages">
+               <% if (missing) { %>
+                 <p>Username is required</p>
+               <% } %>
+               <% if (missings) { %>
+                 <p>Email is required</p>
+               <% } %>
+               <% if (missingss) { %>
+                 <p>Password is required</p>
+               <% } %>
+               <% if (ep) { %>
+                 <p>Email and password are required</p>
+               <% } %>
+               <% if (eu) { %>
+                 <p>Username and email are required</p>
+               <% } %>
+               <% if (up) { %>
+                 <p>Password and username are required</p>
+               <% } %>
+               <% if (eup) { %>
+                 <p>Password, username, and email are required</p>
+               <% } %>
+             </div>
+        </form>
+
+      </div>
+      <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
+      
+      </div>
+    </div>
+  </div>
+
+
+    <%- include("templates/footer") %>
+
+    <style>
+     .error-messages{
+          color:red;
+     }
+    </style>
