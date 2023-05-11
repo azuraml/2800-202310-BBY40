@@ -144,7 +144,7 @@ app.post('/submitUser', async (req,res) => {
 	  req.session.cookie.maxAge = expireTime;
 	  var html = "successfully created user";
 	 // res.send(html);
-	 return res.redirect("/Registration") 
+	 return res.redirect("/quiz");
 	}
 });
 
@@ -198,7 +198,7 @@ app.post('/loggingin', async (req,res) => {
 	  req.session.cookie.maxAge = expireTime;
 	  req.session.user_type = result[0].user_type;
 	 
-	  res.redirect("/profile");
+	  res.redirect("/members");
 	  
 	} else {
 	  console.log("incorrect password");
