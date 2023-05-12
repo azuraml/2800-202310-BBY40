@@ -1,5 +1,6 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "bcrypt": "^5.1.0",
     "connect-mongo": "^5.0.0",
     "connect-mongodb-session": "^3.1.1",
@@ -9,5 +10,9 @@
     "express-session": "^1.17.3",
     "joi": "^17.9.2",
     "nodemailer": "^6.9.2"
+=======
+    "node": "^20.0.0",
+    "nodemon": "^2.0.22"
+>>>>>>> azura_ai
   }
 }
