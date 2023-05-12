@@ -158,6 +158,18 @@ app.post('/submitUser', async (req,res) => {
 	}
 });
 
+app.get("*", (req, res) => {
+	let quotes = [
+	  '"A person who has never made a mistake never tried anything new." - Albert Einstein',
+	  '"You may encounter many defeats, but you must not be defeated." - Maya Angelou',
+	  '"I have not failed. I\'ve just found 10,000 ways that won\'t work." - Thomas A. Edison',
+	  '"Fear regret more than failure." - Taryn Rose',
+	  '"If you have not failed then you have indeed failed." - Ali Farahani',
+	]
+	
+	res.status(404);
+	res.render("404", {quote: quotes[Math.floor(Math.random() * quotes.length)]});
+  });
 
 app.get("/quiz", (req, res) => {
 	res.render('quiz');
