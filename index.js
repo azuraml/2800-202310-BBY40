@@ -374,11 +374,6 @@ app.post('/loggingin', async (req,res) => {
   app.use(express.static(__dirname + "/public"));
 
 app.get("*", (req, res) => {
-  res.status(404);
-  res.render("404");
-});
-
-app.get("*", (req, res) => {
 	let quotes = [
 	  '"A person who has never made a mistake never tried anything new." - Albert Einstein',
 	  '"You may encounter many defeats, but you must not be defeated." - Maya Angelou',
@@ -386,7 +381,7 @@ app.get("*", (req, res) => {
 	  '"Fear regret more than failure." - Taryn Rose',
 	  '"If you have not failed then you have indeed failed." - Ali Farahani',
 	]
-	
+
 	res.status(404);
 	res.render("404", {quote: quotes[Math.floor(Math.random() * quotes.length)]});
   });
