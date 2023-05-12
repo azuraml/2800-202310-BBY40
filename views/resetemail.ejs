@@ -1,8 +1,8 @@
 <%- include("templates/header") %>
 <section style="background-color: #161513; color: darkgray;">
 <div class="d-flex gap-2 justify-content-center py-5">
-  <form action="/resetUserpassword" method="post" class="text-center">
-    Please enter your email and a new password
+  <form action="/sendemail" method="post" class="text-center">
+    Please enter email to receive a link to reset your password
     <div class="form-floating">
       <input
         name="email"
@@ -12,16 +12,6 @@
         placeholder="email"
       />
       <label for="floatingInput">Email address</label>
-    </div>
-    <div class="form-floating">
-      <input
-        name="password"
-        id="floatingPassword"
-        class="form-control"
-        type="password"
-        placeholder="password"
-      />
-      <label for="floatingPassword">New Password</label>
     </div>
     <button class="w-100 btn btn-lg btn-primary">Submit</button>
   </form>

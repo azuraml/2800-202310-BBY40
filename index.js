@@ -7,7 +7,7 @@ const MongoStore = require("connect-mongo");
 const bcrypt = require("bcrypt");
 const url = require("url");
 const saltRounds = 12;
-
+const nodemailer = require('nodemailer');
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -34,8 +34,8 @@ const userPersonalInfoCollection = database.db(mongodb_database).collection("use
 app.set("view engine", "ejs");
 
 const navLinks = [
-  { name: "Homepage", link: "/" },
-  { name: "CreateAccount", link: "/signup" },
+  { name: "Registration", link: "/registration" },
+  { name: "Create Account", link: "/signup" },
   { name: "Login", link: "/login" },
   { name: "Profile", link: "/profile" },
   { name: "logout", link: "/logout" },
@@ -77,6 +77,16 @@ function sessionValidation(req, res, next) {
     res.redirect("/login");
   }
 }
+
+var transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+	  user: 'successwebnoreply@gmail.com',
+	  pass: 'kxzvmzfgbjvjzlsb'
+	}
+  });
+  
+
 app.get("/", (req, res) => {
 	res.render("homepage");
   });
@@ -209,6 +219,7 @@ app.post('/loggingin', async (req,res) => {
 	  return;
 	}
  });
+
  app.get("/reset", (req, res) => {
 	res.render("reset");
   });
@@ -216,7 +227,8 @@ app.post('/loggingin', async (req,res) => {
   app.post("/resetUserpassword", async (req, res) => {
 	var password = req.body.password;
 	var email = req.body.email;
-	  const schema = Joi.object({
+	
+	const schema = Joi.object({
 		email: Joi.string().email().required(),
 		password: Joi.string().max(20).required(),
 	  });
@@ -241,7 +253,55 @@ app.post('/loggingin', async (req,res) => {
 	 
 	
   });
- 
+  app.get("/resetlink", (req, res) => {
+	res.render("resetemail");
+  });
+
+  app.post("/sendemail", async (req, res) => {
+	
+	var email = req.body.email;
+	
+	const schema = Joi.object({
+		email: Joi.string().email().required(),
+	  });
+  
+	  const validationResult = schema.validate({email});
+	  if (validationResult.error != null) {
+		console.log(validationResult.error);
+		res.redirect("/signup");
+		return; 
+	  }
+  
+	  const result = await userCollection
+	  .find({ email: email })
+	  .project({ email: 1, password: 1, username:1, _id: 1 })
+	  .toArray();
+  
+	  var mailOptions = {
+		from: 'successwebnoreply@gmail.com',
+		to: result[0].email,
+		subject: 'Reset Password link',
+		html: '<h1>Caution Read Message Carefully</h1><p>Please do not share link with anyone.<a href="http://tivujfmelq.eu11.qoddiapp.com/reset">reset password </a></p>'
+	  };
+	  
+	  transporter.sendMail(mailOptions, function(error, info){
+		if (error) {
+		  console.log(error);
+		} else {
+		  console.log('Email sent: ' + info.response);
+		}
+	  });
+	 
+	  var html = "Please check your email";
+	  res.send(html);
+	 
+	
+  });
+
+
+
+
+
   app.get("/profile",sessionValidation,async (req, res) => {
 	var username = req.session.username;
 	const result = await userPersonalInfoCollection
