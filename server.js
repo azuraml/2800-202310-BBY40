@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const port = 3000;
+const port = 3004;
 
 http.createServer((req, res) => {
   fs.readFile(path.join(__dirname, 'app/campy.json'), 'utf8', (err, data) => {
