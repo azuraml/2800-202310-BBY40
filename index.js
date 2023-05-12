@@ -313,9 +313,13 @@ app.post('/loggingin', async (req,res) => {
 	.find({username: username })
 	.project({ firstname: 1, lastname: 1, address:1, gender: 1, dob:1, course: 1, _id: 1 })
 	.toArray();
+    const result2 = await userCollection
+	  .find({ username: username })
+	  .project({ email: 1, password: 1, username:1, _id: 1 })
+	  .toArray();
 
 	res.render("profile",{firstname: result[0].firstname, lastname: result[0].lastname,
-	address: result[0].address,  gender: result[0].gender, dob: result[0].dob, course: result[0].course  });
+	address: result[0].address,  gender: result[0].gender, dob: result[0].dob, course: result[0].course, email: result2[0].email  });
   });
   
   app.get("/Registration", (req, res) => {
