@@ -1,3 +1,11 @@
-body {
-    background: linear-gradient(0deg, rgb(255, 255, 0), rgb(255, 255, 255));
+
+*{
+    color:white;
+    overflow: hidden;
 }
+
+
+.navbar-light .custom-nav-link {
+  color: white;
+}
+
