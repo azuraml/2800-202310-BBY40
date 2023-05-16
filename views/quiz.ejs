@@ -380,21 +380,22 @@ input[type=radio]:checked ~ .option {
 
 
 /* Ripple effect */
+/* Ripple effect */
 .ripple {
   background-position: center;
   transition: background 0.8s;
 }
 .ripple:hover {
-  background: #4a96c9 radial-gradient(circle, transparent 1%, #186599 1%) center/15000%;
-  color:white;
+  background: #ffffff radial-gradient(circle, transparent 1%, #ffffff 1%) center/15000%;
+  color:rgb(0, 0, 0);
 }
 .ripple:active {
-  color:white;
-  background-color: #2e709c;
+  color:rgb(0, 0, 0);
+  background-color: #ffee00;
   background-size: 100%;
+
   transition: background 0s;
 }
-
 /* Button style */
 button {
  
@@ -575,7 +576,7 @@ button {
 
   html {
     height: 110%;
-    background: linear-gradient(to bottom, #000000 0%, #040e35 100%);
+    background: linear-gradient(0deg,#ffd90086, rgb(0, 0, 0) 40%);
     overflow-y: hidden;
   }
   

@@ -9,7 +9,7 @@
 <body>
   <div class="flex-container">
     <div class="flex-slide home">
-        <div class="flex-title">Profile</div>
+        <div class="flex-title" onclick="redirectToProfile()">Profile</div>
         <div class="flex-about"><p>Click here to navigate to the About section of the website</p></div>
       </div>
     <div class="flex-slide about">
@@ -45,7 +45,11 @@
 </body>
 </html>
 
-
+<script>
+  function redirectToProfile() {
+    window.location.href = '/profile'; // Replace "/profile" with the actual route you want to navigate to
+  }
+</script>
   <style>
     @import url('https://fonts.googleapis.com/css?family=Raleway');
 
@@ -137,12 +141,12 @@ body {
 .home {
   height: 100vh;
   background-color: grey;
-  background-image: url('/profile.png');
+  background-image: url('/profile2.png');
   /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1628563694622-5a76957fd09c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW5zdGFncmFtJTIwcHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80); */
   background-size: 80%;
   background-position: center center;
   background-attachment: fixed;
-
+  border: 0.1px solid white;
 
 }
 
@@ -240,11 +244,13 @@ body {
 
 .about {
 
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/tutoring.png');
+  background-image:  url('/tutor2.png') ;
 
-  background-size: 170%;
+  background-size: 110%;
   background-position: center center;
-  background-attachment: fixed; 
+border: 0.1px solid white;
+
+
 }
 .contact-form {
   width: 100%;
@@ -257,18 +263,20 @@ textarea {
 }
 .contact {
   background-color: black;
-    background-image:  url('/progress.png');
+    background-image:  url('/graph.jpg');
   background-size: 70%;
   background-position: center center;
   background-attachment: fixed;
+  border: 1px solid white;
 }
 .work {
   background-color: grey;
     /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://w0.peakpx.com/wallpaper/328/274/HD-wallpaper-bad-vibe-sad-sadness.jpg); */
   background-size: 100%;
-  background-image:  url('/support.png');
-  background-position: center center;
+  background-image:  url('/help.png');
+  background-position: top;
   background-attachment: fixed;
+  border: 1px solid white;
 }
 
 
