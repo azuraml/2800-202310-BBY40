@@ -1,282 +1,573 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
-   <div id='stars'></div>
-   <div id='stars2'></div>
-   <div id='stars3'></div>
-</head>
-<body>
-    
-   <div>
-
-       <div class="content">
-        <br><br><br><br><br><br><br><br>
-        <div>=
-        <h1 id ="results">Results</h1>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body onload="NextQuestion(0)">
+    <div id='stars'></div>
+    <div id='stars2'></div>
+    <div id='stars3'></div>
+    <div id='title'>
+      <span>
+        <!-- Insert EJS code here if needed -->
+      </span>
+      <br>
+      <span>
+        <!-- Insert EJS code here if needed -->
+      </span>
     </div>
-  <a class="card" href="#!">
-    <div class="front" style="background-image: url(/BrainFeature.jpg); height:100%; width:100%; background-position: center; background-repeat: no-repeat;">
 
+    <main>
+      <!-- End of quiz score modal -->
+<div id = "border">
+      <h1>Answer a quick 10 question quiz to find out what learning style you are!</h1>
+    </div>
+    <br><br>
+        <button id="begin-button" class="ripple" >Begin!</button>
+      </div>
+    </main>
 
-            <div>
-            <p>What kind of learner are you?<br><br>
-
-              <p id ="small">Click here to find out!</p>
-            </p>
-        </div>
-<br><br><br>
-            
-          </div>
-          <div class="back">
-            <div id = "para">
-             
-    
-             
-              <p>You are an</p>
-              <p id = "learning-style">  </p>
-              <button class="button" onclick="window.location.href='/members'">Click Here to get personalized help!</button>
-
-            </div>
-          </div></a>
-            </div>
-     </div>
-   <script src="quiz-end.js"></script>
-
-</body>
+  </body>
 </html>
+
+
+<script>
+    const beginButton = document.getElementById('begin-button');
+    beginButton.addEventListener('click', () => {
+      window.location.href = '/quiz'; // Replace "/quiz" with the actual route you want to redirect to
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
 <style>
-    #para{
-        padding-top:2em;
+    #border{
+        padding-left: 10%;
+        padding-right:10%;
     }
-    #small{
-       
-        font-size:0.5em;
+    h1{
+        padding-top: 5%;
+        padding-bottom:5%;
+        padding-left: 10%;
+        padding-right:10%;
+        border: 1px solid white;
     }
-    #learning-style {
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    opacity: 1;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html, body{
+    height: 100%;
     
-        font-size: 50px;
-        color: black;
-        text-align: center;
-       
-    }
-
-    *, *:before, *:after {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 18px;
-  line-height: 1.5;
-  font-weight: 300;
-  color: #333;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 
 
-.content {
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 1000px;
-}
-
-.heading {
-  width: 100%;
-  margin-left: 1rem;
-  font-weight: 900;
-  font-size: 1.618rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1ch;
-  line-height: 1;
-  padding-bottom: 0.5em;
-  margin-bottom: 1rem;
-  position: relative;
-}
-
-
-.description {
-  width: 100%;
-  margin-top: 0;
-  margin-left: 1rem;
-  margin-bottom: 3rem;
-}
-
-.card {
-  color: inherit;
-  cursor: pointer;
-  width: calc(33% - 2rem);
-  min-width: calc(33% - 2rem);
-  height: 400px;
-  min-height: 400px;
-  perspective: 1000px;
-  margin: 1rem;
-  position: relative;
-}
-@media screen and (max-width: 800px) {
-  .card {
-    width: calc(50% - 2rem);
-  }
-}
-@media screen and (max-width: 500px) {
-  .card {
-    width: 100%;
-  }
-}
-
-.front,
-.back {
-  display: flex;
-  border-radius: 6px;
-  background-position: center;
-  background-size: cover;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-  transition: ease-in-out 600ms;
-}
-
-.front {
-  background-size: cover;
-  padding: 2rem;
-  font-size: 1.618rem;
-  font-weight: 600;
-  color: #fff;
-  overflow: hidden;
-  font-family: Poppins, sans-serif;
-}
-.front:before {
-  position: absolute;
-  display: block;
-  content: "";
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, #1572a8, #0d40b6);
-  opacity: 0.25;
-  z-index: -1;
-}
-.card:hover .front {
-  transform: rotateY(180deg);
-}
-.card:nth-child(even):hover .front {
-  transform: rotateY(-180deg);
-}
-
-.back {
-  background: #dededf;
-  transform: rotateY(-180deg);
-  padding: 0 2em;
-
-}
-.back .button {
-  background: linear-gradient(135deg, #1a9be6, #1a57e6);
-  color:black;
-}
-.back .button:before {
-  box-shadow: 0 0 10px 10px rgba(26, 87, 230, 0.25);
-  background-color: rgba(26, 87, 230, 0.25);
-}
-.card:hover .back {
-  transform: rotateY(0deg);
-}
-.card:nth-child(even) .back {
-  transform: rotateY(180deg);
-}
-.card:nth-child(even) .back .button {
-  background: linear-gradient(135deg, #ffffff, #ffffff);
-}
-.card:nth-child(even) .back .button:before {
-  box-shadow: 0 0 10px 10px rgba(34, 1, 7, 0.25);
-  background-color: rgba(14, 15, 105, 0.25);
-}
-.card:nth-child(even):hover .back {
-  transform: rotateY(0deg);
-}
-h1{
+html{
     color:white;
 }
-.button {
-  transform: translateZ(40px);
-  cursor: pointer;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  font-weight: bold;
-  height:4em;
-  padding-bottom:1em;
-  color: #fff;
-  padding: 0.5em 1em;
-  border-radius: 100px;
-  font: inherit;
-  font-size: 0.7em;
-  border: none;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: 300ms ease;
-}
-.button:before {
-  transition: 300ms ease;
-  position: absolute;
-  display: block;
-  content: "";
-  transform: translateZ(-40px);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  height: calc(100% - 20px);
-  width: calc(100% - 20px);
-  border-radius: 100px;
-  left: 10px;
-  top: 16px;
-}
-.button:hover {
-  transform: translateZ(55px);
-}
-.button:hover:before {
-  transform: translateZ(-55px);
-}
-.button:active {
-  transform: translateZ(20px);
-}
-.button:active:before {
-  transform: translateZ(-20px);
-  top: 12px;
+
+
+
+
+main{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
-</style>
+.game-quiz-container{
+    width: 40rem;
+    height: 30rem;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<style>
     
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 30px;
+}
+
+.game-details-container{
+    width: 80%;
+    height: 4rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.game-details-container h1{
+    font-size: 0.5em;
+}
+
+.game-question-container{
+    width: 80%;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 25px;
+}
+
+.game-question-container h1{
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 3px;
+}
+
+.game-options-container{
+    width: 90%;
+    height: 12rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.game-options-container span{
+    width: 80%;
+    height: 3rem;
+    
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+
+
+input[type="radio"] {
+    position: relative;
+    display: none;
+}
+
+
+input[type=radio]:checked ~ .option {
+    background: #FFF;
+}
+
+.next-button-container{
+    width: 50%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+}
+.next-button-container button{
+    width: 8rem;
+    height: 2rem;
+    border-radius: 10px;
+    background: none;
+    color: rgb(255, 255, 255);
+ 
+    border: 2px solid rgb(255, 255, 255);
+    cursor: pointer;
+    outline: none;
+}
+.next-button-container button:hover{
+    background-color: rgb(255, 255, 255);
+}
+
+.modal-container{
+    display: none;
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+   
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    -webkit-animation: fadeIn 1.2s ease-in-out;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+.modal-content-container{
+    height: 20rem;
+    width: 25rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 25px;
+}
+
+.modal-content-container h1{
+   
+    height: 3rem;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.grade-details{
+    width: 15rem;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.grade-details p{
+    color: white;
+    text-align: center;
+}
+
+.modal-button-container{
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-button-container button{
+    width: 10rem;
+    height: 2rem;
+    background: none;
+    outline: none;
+    border: 1px solid rgb(252, 242, 241);
+    color: white;
+
+    cursor: pointer;
+    border-radius: 20px;
+}
+.modal-button-container button:hover{
+    background-color: rgb(253, 253, 253);
+}
+
+@media(min-width : 300px) and (max-width : 350px){
+    .game-quiz-container{
+        width: 90%;
+        height: 80vh;
+     }
+     .game-details-container h1{
+    
+     }
+
+     .game-question-container{
+        height: 6rem;
+     }
+     .game-question-container h1{
+  
+    }
+
+    .game-options-container span{
+        width: 90%;
+        height: 2.5rem;
+    }
+
+    .modal-content-container{
+        width: 90%;
+        height: 25rem;
+    }
+
+
+}
+
+@media(min-width : 350px) and (max-width : 700px){
+   .game-quiz-container{
+       width: 90%;
+       height: 80vh;
+    }
+ 
+
+    .game-question-container{
+        height: 8rem;
+    }
+
+
+
+    .game-options-container span{
+        width: 90%;
+    }
+    .modal-content-container{
+        width: 90%;
+        height: 25rem;
+    }
+
+}
+
+
+
+@keyframes fadeIn {
+    from {opacity: 1;}
+    to {opacity:1 ;}
+  }
+
+  @-webkit-keyframes fadeIn {
+    from {opacity: 1;}
+    to {opacity: 1;}
+  }
+
+
+
+
+
+
+
+
+
+
+#display-question{
+  font-family: "Helvetica", "Arial", sans-serif;
+  justify-content: center;
+  font-size: 1.6em;
+  text-align: center;
+  padding: 0.5em 0.5em;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 15px;
+  font-weight:0;
+  color:#000;
+  position: relative;
+  background-color: #FFF;
+}
+
+#Ques{
+  margin-top: 1em;
+  font-size: 1.6em;
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-weight: 0em;
+}
+
+.game-quiz-container{
+  margin-bottom: 6em;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: #ffffff radial-gradient(circle, transparent 1%, #ffffff 1%) center/15000%;
+  color:rgb(0, 0, 0);
+}
+.ripple:active {
+  color:rgb(0, 0, 0);
+  background-color: #ffee00;
+  background-size: 100%;
+
+  transition: background 0s;
+}
+
+/* Button style */
+button {
+ 
+  border: none;
+  border-radius: 8px;
+  width:75%;
+  padding: 12px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  background-color: #ffffff;
+
+  outline: none;
+  position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  body {
+    overflow: hidden;
+    font-size: 1em;
+    font-family: "Helvetica", "Arial", sans-serif;
+    
+   
+
+  }
+  
+  .bubbly-button {
+  
+    text-align: center;
+    font-family: "Helvetica", "Arial", sans-serif;
+    display: inline-block;
+    font-size: 1em;
+    padding: 0.5em 1em;
+    height:3.7em;
+    width:20em;
+    appearance: none;
+    background-color: #fff;
+ 
+    color: #000;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+   
+  }
+ .bubbly-button:focus {
+    outline: 0;
+  }
+  .bubbly-button:before, .bubbly-button:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 140%;
+    height: 100%;
+    left: -20%;
+    z-index: -1000;
+    transition: all ease-in-out 0.5s;
+    background-repeat: no-repeat;
+  }
+  .bubbly-button:before {
+    display: none;
+    top: -75%;
+    background-image: radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, transparent 20%, #FFF 20%, transparent 30%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, transparent 10%, #FFF 15%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%);
+    background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+  }
+  .bubbly-button:after {
+    display: none;
+    bottom: -75%;
+    background-image: radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, transparent 10%, #FFF 15%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%), radial-gradient(circle, #FFF 20%, transparent 20%);
+    background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+  }
+  .bubbly-button:active {
+    transform: scale(0.9);
+    background-color: #FFF;
+    box-shadow: 0 2px 25px #FFF;
+  }
+  .bubbly-button.animate:before {
+    display: block;
+    animation: topBubbles ease-in-out 0.75s forwards;
+  }
+    .bubbly-button.animate:after {
+    display: block;
+    animation: bottomBubbles ease-in-out 0.75s forwards;
+  }
+  
+  @keyframes topBubbles {
+    0% {
+      background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+    }
+    50% {
+      background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+    }
+    100% {
+      background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+      background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+  }
+  @keyframes bottomBubbles {
+    0% {
+      background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+    }
+    50% {
+      background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+    }
+    100% {
+      background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+      background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   html {
     height: 110%;
@@ -356,5 +647,4 @@ pan {
       transform: translateY(-2000px);
     }
   }
-</style>
 </style>

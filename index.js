@@ -160,7 +160,7 @@ app.post('/submitUser', async (req,res) => {
 	  req.session.cookie.maxAge = expireTime;
 	  var html = "successfully created user";
 	 // res.send(html);
-	 return res.redirect("/quiz");
+	 return res.redirect("/quiz-pre-start");
 	}
 });
 
@@ -170,7 +170,9 @@ app.get("/quiz", (req, res) => {
   app.get("/quiz-end", (req, res) => {
 	  res.render("quiz-end");
 	});
-	
+	app.get("/quiz-pre-start", (req, res) => {
+		res.render('quiz-pre-start');
+	  });
 		 app.get("/members", (req, res) => {
 	  res.render('members');
 	});
