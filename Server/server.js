@@ -26,6 +26,15 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
+    let botResponse = '';
+
+    // Check if it's the first interaction
+    if (conversation.length === 0) {
+      botResponse = "Jacob: Hi there! I'm Jacob, your personal tutor. How can I assist you today?";
+    } else {
+   
+   
+   
     const response = await openai.createCompletion({
       model: 'text-davinci-003',
       prompt: `${conversation.map(entry => `${entry.role}: ${entry.content}`).join('\n')}User: ${prompt}`,
@@ -37,7 +46,7 @@ app.post('/', async (req, res) => {
     });
 
     const botResponse = response.data.choices[0].text;
-
+  }
     // Add user input and AI response to conversation history
     conversation.push({ role: 'user', content: prompt });
     conversation.push({ role: 'tutor', content: botResponse });
@@ -57,7 +66,7 @@ app.post('/', async (req, res) => {
 });
 
 
-app.post('/reset', (req, res) => {
+app.get('/reset', (req, res) => {
   conversation = []; // Reset conversation history
   res.status(200).send({ message: 'Conversation history has been reset.' });
 });
