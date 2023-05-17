@@ -55,7 +55,7 @@ app.post('/', async (req, res) => {
     }
 
     res.status(200).send({
-      bot: botResponse,
+      bot: { response: botResponse },
     });
   } catch (error) {
     console.log(error);
