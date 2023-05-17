@@ -31,7 +31,7 @@ app.post('/', async (req, res) => {
     // Check if it's the first interaction
     if (conversation.length === 0) {
       botResponse = "Jacob: Hi there! I'm Jacob, your personal tutor. How can I assist you today?";
-    } else {
+    } 
    
    
    
@@ -45,8 +45,8 @@ app.post('/', async (req, res) => {
       presence_penalty: 0.0,
     });
 
-    const botResponse = response.data.choices[0].text;
-  }
+     botResponse = response.data.choices[0].text;
+  
     // Add user input and AI response to conversation history
     conversation.push({ role: 'user', content: prompt });
     conversation.push({ role: 'tutor', content: botResponse });
