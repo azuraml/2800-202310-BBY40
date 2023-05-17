@@ -1,0 +1,11 @@
+<ul>
+    <% jsonData.forEach((item) => { %>
+      <li>
+        <a href="<%= item.link %>"><%= item.title %></a>
+        <% if (item.ed) { %>
+          <span><%= item.ed %></span>
+        <% } %>
+      </li>
+    <% }); %>
+  </ul>
+  

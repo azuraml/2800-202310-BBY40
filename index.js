@@ -3,8 +3,8 @@ require("./utils.js");
 require("dotenv").config();
 
 // const http = require('http');
-// const fs = require('fs');
-// const path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 
 const express = require("express");
@@ -38,6 +38,7 @@ var { database } = include("databaseConnection");
 const userCollection = database.db(mongodb_database).collection("users");
 const userPersonalInfoCollection = database.db(mongodb_database).collection("userPersonalInfo")
 app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
 
 const navLinks = [
   { name: "Registration", link: "/registration" },
@@ -377,35 +378,19 @@ app.post('/loggingin', async (req,res) => {
   
 
 
-// app.get("/resources", (req, res) => {
-// 	fs.readFile(path.join(__dirname, 'app/campy.json'), 'utf8', (err, data) => {
-//     if (err) {
-//       res.writeHead(500, {'Content-Type': 'text/plain'});
-//       res.end('Internal Server Error');
-//       return;
-//     }
+app.get("/resources", (req, res) => {
+	fs.readFile(path.join(__dirname, 'app/campy.json'), 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).send('Internal Server Error');
+      return;
+    }
 
-//     // Parse the JSON data
-//     const jsonData = JSON.parse(data);
+    const jsonData = JSON.parse(data);
 
-//     // Set the response headers
-//     // res.writeHead(200, {'Content-Type': 'text/html'});
 
-//     // Create the HTML list
-//     let htmlList = '<ul>';
-//     jsonData.forEach((item) => {
-//       htmlList += `<li><a href="${item.link}">${item.title}</a>`;
-//       if (item.ed) {
-//         htmlList += `<span>${item.ed}</span>`;
-//       }
-//       htmlList += '</li>';
-//     });
-//     htmlList += '</ul>';
-
-//     // Send the HTML as the response
-//     res.end(htmlList);
-//   });
-// })
+	res.render('resources', {jsonData});
+  });
+})
 
 
   app.get("/logout", (req, res) => {
