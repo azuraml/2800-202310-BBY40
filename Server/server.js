@@ -31,22 +31,20 @@ app.post('/', async (req, res) => {
     // Check if it's the first interaction
     if (conversation.length === 0) {
       botResponse = "Jacob: Hi there! I'm Jacob, your personal tutor. How can I assist you today?";
-    } 
-   
-   
-   
-    const response = await openai.createCompletion({
-      model: 'text-davinci-003',
-      prompt: `${conversation.map(entry => `${entry.role}: ${entry.content}`).join('\n')}User: ${prompt}`,
-      temperature: 0.5,
-      max_tokens: 3000,
-      top_p: 1.0,
-      frequency_penalty: 0.5,
-      presence_penalty: 0.0,
-    });
+    } else {
+      const response = await openai.createCompletion({
+        model: 'text-davinci-003',
+        prompt: `${conversation.map(entry => `${entry.role}: ${entry.content}`).join('\n')}User: ${prompt}`,
+        temperature: 0.5,
+        max_tokens: 3000,
+        top_p: 1.0,
+        frequency_penalty: 0.5,
+        presence_penalty: 0.0,
+      });
 
-     botResponse = response.data.choices[0].text;
-  
+      botResponse = response.data.choices[0].text;
+    }
+
     // Add user input and AI response to conversation history
     conversation.push({ role: 'user', content: prompt });
     conversation.push({ role: 'tutor', content: botResponse });
@@ -55,6 +53,10 @@ app.post('/', async (req, res) => {
     if (conversation.length >= 40) {
       conversation = [];
     }
+
+    res.status(200).send({
+      bot: botResponse,
+    });
 
     res.status(200).send({
       bot: botResponse,
