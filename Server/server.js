@@ -30,7 +30,7 @@ app.post('/', async (req, res) => {
 
     // Check if it's the first interaction
     if (conversation.length === 0) {
-      botResponse = "Jacob: Hi there! I'm Jacob, your personal tutor. How can I assist you today?";
+      botResponse = "Hi there! I'm Jacob, your personal tutor. How can I assist you today?";
     } else {
       const response = await openai.createCompletion({
         model: 'text-davinci-003',
@@ -53,10 +53,6 @@ app.post('/', async (req, res) => {
     if (conversation.length >= 40) {
       conversation = [];
     }
-
-    res.status(200).send({
-      bot: botResponse,
-    });
 
     res.status(200).send({
       bot: botResponse,
