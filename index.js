@@ -6,7 +6,7 @@ require("dotenv").config();
 // const fs = require('fs');
 // const path = require('path');
 
-
+const { Configuration, OpenAIApi }= require ('openai');
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -29,7 +29,8 @@ const mongodb_user = process.env.MONGODB_USER;
 const mongodb_password = process.env.MONGODB_PASSWORD;
 const mongodb_database = process.env.MONGODB_DATABASE;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
-
+const configuration = new Configuration ({
+apiKey:	process.env.OPENAI_API_KEY,});
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 /* END secret section */
 
@@ -406,6 +407,110 @@ app.post('/loggingin', async (req,res) => {
 //     res.end(htmlList);
 //   });
 // })
+
+
+
+// second ai bot, attempt to create dynamic html page
+/*
+const openai = new OpenAIApi(configuration);
+
+  
+  
+	// Route to generate and serve dynamic HTML
+app.get('/generate-html', async (req, res) => {
+	try {
+		const response = await openai.createCompletion({
+		  model: 'text-davinci-003',
+		  prompt: 'Generate HTML content',
+		  maxTokens: 100,
+		});
+	
+		const generatedText = response.data.choices[0].text;
+		res.status(200).send({
+		  bot: generatedText,
+		});
+		const html = `<html><body>${generatedText}</body></html>`;
+		return html;
+	  } catch (error) {
+		console.error('Error:', error);
+		throw error;
+	  }
+	});
+
+
+
+
+app.post('/generate-htmls', async (req, res) => {
+	try {
+	  const response = await openai.createCompletion({
+		model: 'text-davinci-003',
+		prompt: 'Generate HTML content',
+		maxTokens: 100,
+	  });
+  
+	  const generatedText = response.data.choices[0].text;
+	  res.status(200).send({
+		bot: generatedText,
+	  });
+	  const html = `<html><body>${generatedText}</body></html>`;
+	  return html;
+	} catch (error) {
+	  console.error('Error:', error);
+	  throw error;
+	}
+  
+});
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   app.get("/logout", (req, res) => {
