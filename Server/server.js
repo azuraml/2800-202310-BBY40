@@ -40,7 +40,7 @@ app.post('/', async (req, res) => {
 
     // Add user input and AI response to conversation history
     conversation.push({ role: 'user', content: prompt });
-    conversation.push({ role: 'bot', content: botResponse });
+    conversation.push({ role: 'tutor', content: botResponse });
 
     // Reset conversation history after 20 interactions
     if (conversation.length >= 40) {
@@ -55,5 +55,13 @@ app.post('/', async (req, res) => {
     res.status(500).send({ error });
   }
 });
+
+
+app.post('/reset', (req, res) => {
+  conversation = []; // Reset conversation history
+  res.status(200).send({ message: 'Conversation history has been reset.' });
+});
+
+
 
 app.listen(5000, () => console.log('Server is running on port http://localhost:5000'));
