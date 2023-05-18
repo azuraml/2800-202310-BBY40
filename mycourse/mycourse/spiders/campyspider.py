@@ -12,3 +12,5 @@ class CampySpider(scrapy.Spider):
                 'link': response.urljoin(products.css('a.bccampus-link.card.bccampus-list-item.primary::attr(href)').get())
             }
                 # 'link': products.css('a.bccampus-link.card.bccampus-list-item.primary').attrib['href'],
+
+# ant-typography ant-typography-ellipsis ant-typography-single-line ant-typography-ellipsis-single-line bccampus-list-item-title
