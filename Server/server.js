@@ -2,8 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
-import { MongoClient } from 'mongodb';
-import MongoStore  from "connect-mongo";
+
 dotenv.config();
 
 /* secret information section */
