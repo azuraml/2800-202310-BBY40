@@ -19,8 +19,9 @@
       </a>
     </div>
     <div class="flex-slide work">
-      <a href="/resources" style="text-decoration: none; color: inherit;">
-      <div class="flex-title"><br>Resources</div>
+
+      <div class="flex-title" onclick="redirectToResources()"><br>Resources</div>
+      
       <div class="flex-about"><p>Listing relevant snippets of work:</p>
         <!-- <ul>
           <li>First piece of work</li>
@@ -49,6 +50,10 @@
 <script>
   function redirectToProfile() {
     window.location.href = '/profile'; // Replace "/profile" with the actual route you want to navigate to
+  }
+
+  function redirectToResources() {
+    window.location.href = '/resources'; // Replace "/profile" with the actual route you want to navigate to
   }
 </script>
   <style>

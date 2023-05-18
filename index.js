@@ -376,6 +376,12 @@ app.post('/loggingin', async (req,res) => {
 	
 });
   
+  
+app.get("/resources", (req, res) => {
+	res.render("resources");
+  });
+  
+
 
 
 app.get("/resources", (req, res) => {
