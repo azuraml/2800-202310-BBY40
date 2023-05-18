@@ -23,6 +23,12 @@ app.use(express.json());
 // Conversation history storage
 const collection = client.db(mongodb_database).collection('conversation');
 
+app.get('/', async (req, res) => {
+  res.status(200).send({
+    message: 'Hello from Codex',
+  });
+});
+
 app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
