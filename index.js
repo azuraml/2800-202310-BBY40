@@ -180,6 +180,9 @@ app.get("/quiz", (req, res) => {
 	app.get("/progress", (req, res) => {
 		res.render('progress');
 	  });
+  	app.get("/web", (req, res) => {
+		res.render('web');
+	  });
   
 
 app.get('/login', (req,res) => {
