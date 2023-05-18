@@ -2,8 +2,15 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
-
+import { MongoClient } from 'mongodb';
+import MongoStore  from "connect-mongo";
 dotenv.config();
+
+/* secret information section */
+const mongodb_database = process.env.MONGODB_DATABASE;
+/* END secret section */
+
+import { client } from "./databaseConnection.js";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -15,13 +22,7 @@ app.use(cors());
 app.use(express.json());
 
 // Conversation history storage
-let conversation = [];
-
-app.get('/', async (req, res) => {
-  res.status(200).send({
-    message: 'Hello from Codex',
-  });
-});
+const collection = client.db(mongodb_database).collection('conversation');
 
 app.post('/', async (req, res) => {
   try {
@@ -46,12 +47,14 @@ app.post('/', async (req, res) => {
     }
 
     // Add user input and AI response to conversation history
-    conversation.push({ role: 'user', content: prompt });
-    conversation.push({ role: 'tutor', content: botResponse });
+    const userEntry = { role: 'user', content: prompt };
+    const tutorEntry = { role: 'tutor', content: botResponse };
+    await collection.insertMany([userEntry, tutorEntry]);
 
     // Reset conversation history after 20 interactions
-    if (conversation.length >= 40) {
-      conversation = [];
+    const count = await collection.countDocuments();
+    if (count >= 40) {
+      await collection.deleteMany({});
     }
 
     res.status(200).send({
@@ -63,12 +66,9 @@ app.post('/', async (req, res) => {
   }
 });
 
-
 app.get('/reset', (req, res) => {
   conversation = []; // Reset conversation history
   res.status(200).send({ message: 'Conversation history has been reset.' });
 });
-
-
 
 app.listen(5000, () => console.log('Server is running on port http://localhost:5000'));
