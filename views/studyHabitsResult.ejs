@@ -1,0 +1,68 @@
+<%- include("templates/header", {cssPage: ""}) %>
+
+<style>
+    #tblHeader > th {
+        font-size: 22px;
+    }
+    th {
+        padding: 0;
+        color:rgb(255, 255, 255);
+        padding-right: 30px;
+        font-size: 16px;
+        text-align: left;
+        white-space: nowrap;
+    }
+    table {
+        margin-left: 20px;
+    }
+
+    /* MODIFY HERE */
+    .schoolTask, .schoolTask > th {
+        color:rgb(255, 255, 255);
+    }
+    .breakTask, .breakTask > th {
+        color:rgb(255, 225, 78);
+    }
+    .peripheralTask, .peripheralTask > th {
+        color:rgb(149, 114, 255);
+    }
+    .lateTask, .lateTask > th {
+        color:rgb(255, 0, 0);
+    }
+</style>
+
+<% const month = ["January","February","March","April","May","June","July","August","September","October","November","December"]; %>
+
+<div class="col-md-12 text-center">
+    <br>
+    <h1 class="text-center pt-5 px-4 py-0 m-0 text-white">Here is your customized schedule for <%= month[(new Date()).getMonth()] %> <%= (new Date()).getDate() %>!</h1>
+    <h5 class="text-center pt-5 px-4 py-0 m-0 text-white">Scroll down to see the thinking behind the scheduling</h5>
+
+    <br><br>
+    <table>
+        <tr id="tblHeader"><th>Time</th><th>Task</th><th>Duration</th></tr>
+
+        <% for (let i = 0; i < result.length; i++) { %>
+            <% const task = result[i]; %>
+            <tr class="<%= task[3] %>"><th><%= task[0] %></th><th><%= task[1] %></th><th><%= task[2] %></th></tr>
+        <% } %>
+    </table>
+
+    <p class="text-white mx-5 px-2 pt-5 text-start fw-bold">Here is some of the thinking behind the scheduling:</p>
+    <ul class="mx-5 px-5">
+        <li class="text-white text-start">The first school task of the day is a small one to warm you up for the later school tasks, which start large but get smaller!</li>
+        <li class="text-white text-start">School tasks are <span class="schoolTask">white</span>, breaks are <span class="breakTask">yellow</span>, and non-school tasks are <span class="peripheralTask">purple</span>.</li>
+        <li class="text-white text-start">Tasks that go past midnight are <span class="lateTask">red</span>. If you have any tasks like these, consider scheduling it for another day!</li>
+        <li class="text-white text-start">Larger school tasks (1 hour or longer) are broken into 1 hour chunks to help you work through them more effectively!</li>
+        <li class="text-white text-start">All school tasks have a break to help you stay more productive! Breaks go from 5-15 minutes depending on the size of the task.</li>
+    </ul>
+
+    <br><br><br>
+    <a class="btn btn-light btn-lg" href="/saveStudyHabitsSchedule">
+        Save schedule
+        <svg class="bi ms-1" width="20" height="20"><use xlink:href="#arrow-right-short"></use></svg>
+    </a>
+</div>
+
+<br><br><br><br><br><br><br><br>
+<%- include("templates/footer") %>

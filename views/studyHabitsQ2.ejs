@@ -1,0 +1,55 @@
+<%- include("templates/header", {cssPage: ""}) %>
+
+<input id="q" hidden value="<%= q %>">
+
+<div class="col-md-12 text-center">
+    <br>
+    <h2 class="text-center px-4 text-white">Now tell me about your peripheral tasks.</h2>
+
+    <br>
+    <form id="tasks">
+        <label class="ms-2 w-25 text-white">Task</label><label class="ms-2 w-25 text-white">Time</label><label class="ms-2 w-25 text-white">Minutes</label>
+
+        <input class="task ms-2 w-25 p-1" type="text" placeholder="Wake up"><input class="time ms-2 w-25 p-1" type="text" placeholder="8:30am"><input class="dur ms-2 w-25 p-1" type="number" placeholder="5">
+        <input class="task ms-2 w-25 p-1" type="text" placeholder="Lunch"><input class="time ms-2 w-25 p-1" type="text" placeholder="1pm"><input class="dur ms-2 w-25 p-1" type="number" placeholder="30">
+        <input class="task ms-2 w-25 p-1" type="text" placeholder="Sleep"><input class="time ms-2 w-25 p-1" type="text" placeholder="10pm"><input class="dur ms-2 w-25 p-1" type="number" placeholder="15">
+    </form>
+
+    <br>
+    <button id="mbtn" class="btn btn-warning btn-sm">
+        More +
+    </button>
+
+    <br><br><br>
+    <button id="cbtn" class="btn btn-light btn-lg">
+        Continue
+        <svg class="bi ms-1" width="20" height="20"><use xlink:href="#arrow-right-short"></use></svg>
+    </button>
+</div>
+<script>
+    const q = document.querySelector("#q").value;
+    
+    document.querySelector("#mbtn").addEventListener("click", function() {
+        document.querySelector("#tasks").insertAdjacentHTML("beforeend", `
+        <input class="task ms-2 w-25 p-1" type="text"><input class="time ms-2 w-25 p-1" type="text"><input class="dur ms-2 w-25 p-1" type="number">
+        `)
+    })
+
+    document.querySelector("#cbtn").addEventListener("click", function() {
+        const taskCbxs = document.querySelectorAll(".task");
+        const durCbxs = document.querySelectorAll(".dur");
+        const timeCbxs = document.querySelectorAll(".time");
+        let taskStrs = [];
+        for (let i = 0; i < taskCbxs.length; i++) {
+            const taskCbx = taskCbxs[i]; console.log("taskCbx value:", taskCbx.value);
+            const durCbx = durCbxs[i]; console.log("durCbx value:", durCbx.value);
+            const timeCbx = timeCbxs[i]; console.log("durCbx value:", timeCbx.value);
+            if (taskCbx.value != "") {
+                taskStrs.push(taskCbx.value + ".-." + durCbx.value + ".-." + timeCbx.value);
+            }
+        }
+        document.location.href = "/studyHabitsLoading/?qs=" + q + taskStrs.join(".--.");
+    })
+</script>
+
+<%- include("templates/footer") %>

@@ -1,0 +1,20 @@
+<%- include("templates/header", {cssPage: ""}) %>
+
+<input id="qs" hidden value="<%= qs %>">
+
+<div class="col-md-12 text-center">
+    <br><br><br><br>
+    <h1 class="text-center pt-5 px-4 text-white">We're customizing your schedule, hold on tight!</h1>
+</div>
+
+<script>
+    const qs = document.querySelector("#qs").value;
+    const possibleWaitTimes = [5, 6, 7, 8]; // in seconds
+
+    setTimeout(function() {
+		document.location.href = "/studyHabitsResult?qs=" + qs;
+	}, possibleWaitTimes[Math.floor(Math.random() * possibleWaitTimes.length)] * 1000)
+</script>
+
+<br><br>
+<%- include("templates/footer") %>
