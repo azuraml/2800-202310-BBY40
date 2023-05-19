@@ -3,10 +3,10 @@ require("./utils.js");
 require("dotenv").config();
 
 // const http = require('http');
-// const fs = require('fs');
-// const path = require('path');
+const fs = require('fs');
+const path = require('path');
 
-
+// const { Configuration, OpenAIApi }= require ('openai');
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -14,6 +14,7 @@ const bcrypt = require("bcrypt");
 const url = require("url");
 const saltRounds = 12;
 const nodemailer = require('nodemailer');
+const axios = require('axios');
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -29,15 +30,17 @@ const mongodb_user = process.env.MONGODB_USER;
 const mongodb_password = process.env.MONGODB_PASSWORD;
 const mongodb_database = process.env.MONGODB_DATABASE;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
-
+//const configuration = new Configuration ({
+//apiKey:	process.env.OPENAI_API_KEY,});
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 /* END secret section */
 
 var { database } = include("databaseConnection");
 
 const userCollection = database.db(mongodb_database).collection("users");
-const userPersonalInfoCollection = database.db(mongodb_database).collection("userPersonalInfo")
+const userPersonalInfoCollection = database.db(mongodb_database).collection("userPersonalInfo");
 app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
 
 const navLinks = [
 	{ name: "Login", link: "/login" },
@@ -133,6 +136,7 @@ app.post('/submitUser', async (req, res) => {
 	if (!password) {
 		return res.redirect("/signup?missingss=1");
 	} else {
+
 		const schema = Joi.object({
 			username: Joi.string().alphanum().max(20).required(),
 			password: Joi.string().max(20).required(),
@@ -160,25 +164,50 @@ app.post('/submitUser', async (req, res) => {
 		var html = "successfully created user";
 		// res.send(html);
 		return res.redirect("/quiz");
+
 	}
 });
 
 app.get("/quiz", (req, res) => {
 	res.render('quiz');
-});
-app.get("/quiz-end", (req, res) => {
-	res.render("quiz-end");
-});
 
-app.get("/members", (req, res) => {
-	res.render('members');
-});
-app.get("/progress", (req, res) => {
-	res.render('progress');
-});
+  });
+  app.get("/quiz-end", (req, res) => {
+	  res.render("quiz-end");
+	});
+	app.get("/quiz-pre-start", (req, res) => {
+		res.render('quiz-pre-start');
+	  });
+		 app.get("/members", (req, res) => {
+	  res.render('members');
+	});
+	app.get("/progress", (req, res) => {
+		res.render('progress');
+	  });
+  	app.get("/web", function(req, res)  {
+		res.render('web');
+	  });
+  
 
+	  function sendPostRequest(username) {
+		const postData = {
+		  //  data to be sent in the request body
+		  username: username,
+		};
+	  
+		axios.post('https://lihcxopqef.eu08.qoddiapp.com/', postData)
+		  .then((response) => {
+			// Handle the response from the server
+			console.log(response.data);
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during the request
+			console.error(error);
+		  });
+	  }
 
-app.get('/login', (req, res) => {
+app.get('/login', (req,res) => {
+
 	var missingUsername = req.query.missing;
 
 	res.render("login", { missing: missingUsername });
@@ -209,6 +238,7 @@ app.post('/loggingin', async (req, res) => {
 		return;
 	}
 	if (await bcrypt.compare(password, result[0].password)) {
+
 		console.log("correct password");
 		req.session.authenticated = true;
 		req.session.username = result[0].username;
@@ -372,37 +402,133 @@ app.post('/addstudentinfo', async (req, res) => {
 
 });
 
+  
+  
+app.get("/resources", (req, res) => {
+	res.render("resources");
+  });
+  
 
 
-// app.get("/resources", (req, res) => {
-// 	fs.readFile(path.join(__dirname, 'app/campy.json'), 'utf8', (err, data) => {
-//     if (err) {
-//       res.writeHead(500, {'Content-Type': 'text/plain'});
-//       res.end('Internal Server Error');
-//       return;
-//     }
 
-//     // Parse the JSON data
-//     const jsonData = JSON.parse(data);
+app.get("/resources", (req, res) => {
+	fs.readFile(path.join(__dirname, 'app/campy.json'), 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).send('Internal Server Error');
+      return;
+    }
 
-//     // Set the response headers
-//     // res.writeHead(200, {'Content-Type': 'text/html'});
+    const jsonData = JSON.parse(data);
 
-//     // Create the HTML list
-//     let htmlList = '<ul>';
-//     jsonData.forEach((item) => {
-//       htmlList += `<li><a href="${item.link}">${item.title}</a>`;
-//       if (item.ed) {
-//         htmlList += `<span>${item.ed}</span>`;
-//       }
-//       htmlList += '</li>';
-//     });
-//     htmlList += '</ul>';
 
-//     // Send the HTML as the response
-//     res.end(htmlList);
-//   });
-// })
+	res.render('resources', {jsonData});
+  });
+})
+
+
+
+// second ai bot, attempt to create dynamic html page
+/*
+const openai = new OpenAIApi(configuration);
+
+  
+  
+	// Route to generate and serve dynamic HTML
+app.get('/generate-html', async (req, res) => {
+	try {
+		const response = await openai.createCompletion({
+		  model: 'text-davinci-003',
+		  prompt: 'Generate HTML content',
+		  maxTokens: 100,
+		});
+	
+		const generatedText = response.data.choices[0].text;
+		res.status(200).send({
+		  bot: generatedText,
+		});
+		const html = `<html><body>${generatedText}</body></html>`;
+		return html;
+	  } catch (error) {
+		console.error('Error:', error);
+		throw error;
+	  }
+	});
+
+
+
+
+app.post('/generate-htmls', async (req, res) => {
+	try {
+	  const response = await openai.createCompletion({
+		model: 'text-davinci-003',
+		prompt: 'Generate HTML content',
+		maxTokens: 100,
+	  });
+  
+	  const generatedText = response.data.choices[0].text;
+	  res.status(200).send({
+		bot: generatedText,
+	  });
+	  const html = `<html><body>${generatedText}</body></html>`;
+	  return html;
+	} catch (error) {
+	  console.error('Error:', error);
+	  throw error;
+	}
+  
+});
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get("/studyHabits", sessionValidation, (req, res) => {
 	res.render("studyHabitsIntro");

@@ -1,0 +1,1055 @@
+
+
+
+<div class='spider_0'>
+ 
+    <div class='eye left'></div>
+    <div class='eye right'></div>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+  </div>
+  <div class='spider_1'>
+    <div class='eye left'></div>
+    <div class='eye right'></div>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+  </div>
+  <div class='spider_2'>
+    <div class='eye left'></div>
+    <div class='eye right'></div>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+  </div>
+  <div class='spider_3'>
+    <div class='eye left'></div>
+    <div class='eye right'></div>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+  </div>
+  
+  <div class='spider_4'>
+    <div class='eye left'></div>
+    <div class='eye right'></div>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+  </div>
+  <div class='spider_5'>
+    <div class='eye left'></div>
+    <div class='eye right'></div>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg left'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+    <span class='leg right'></span>
+  </div>
+  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br><br><br><br><br>
+  <div class="web">
+    
+    <span style="--idx: 0"></span>
+    <span style="--idx: 1"></span>
+    <span style="--idx: 2"></span>
+    <span style="--idx: 3"></span>
+    <span style="--idx: 4"></span>
+    <span style="--idx: 5"></span>
+    <span style="--idx: 6"></span>
+    <span style="--idx: 7"></span>
+    <span style="--idx: 8"></span>
+    <span style="--idx: 9"></span>
+    <span style="--idx: 10"></span>
+    <span style="--idx: 11"></span>
+  </div>
+  <h1><span>Success</span><span><br><div id = "yellow">"Web"</div></span></h1>
+  <img class='web-right' src='http://www.scandiafun.com/images/spiderweb-corner-right.png'>
+  <img class='web-left' src='http://www.scandiafun.com/images/spiderweb-corner-right.png'>
+<style>
+    #yellow{
+        color:yellow;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box }
+h1{
+    position: absolute;
+    bottom:1000px;
+}
+.web {
+  --size: 100vmin;
+  --segments: 12;
+  --line-color: rgb(255 255 255 / .5);
+  
+  /* working on this part to make more dynamic */
+  --line-size: 0.25vmin;
+  --line-spacing: 4.75vmin;
+  /* --line-spacing: calc((var(--size) / 2) / var(--rings) - var(--line-size)); */
+  /* --rings: 10; */
+  
+  filter: drop-shadow(0 0 2px black);
+  width: var(--size);
+  aspect-ratio: 1;
+  display: grid;
+}
+.web > span {
+  --segment-angle: calc(360deg / var(--segments));
+  grid-area: 1/1;
+  display: grid;
+  transform: rotate(calc(var(--segment-angle) * var(--idx)));
+  border-radius: 50%;
+}
+/* lines */
+.web > span::after {
+  grid-area: 1/1;
+  content: "";
+  width: var(--line-size);
+  justify-self: center;
+  background-color: var(--line-color);
+  --mask-image: linear-gradient(black 50%, transparent 50%);
+  -webkit-mask-image: var(--mask-image);
+  mask-image: var(--mask-image);
+  transform: rotate(calc(var(--segment-angle) / -2)) scaleY(5);
+}
+/* rings */
+.web > span::before{
+  content: "";
+  grid-area: 1/1;
+  border-radius: 50%;
+  width: 100%;
+  --stop1: calc(var(--line-spacing));
+  --stop2: calc(var(--stop1) + var(--line-size));
+  background-image: repeating-radial-gradient(
+    circle at center -25%,
+    transparent 0 var(--stop1), 
+    var(--line-color) var(--stop1) var(--stop2)
+  );
+  --mask-image: conic-gradient(
+    black 0 calc(var(--segment-angle) / 2),
+    transparent calc(var(--segment-angle) / 2) calc(360deg - var(--segment-angle) / 2),
+    black calc(360deg - var(--segment-angle) / 2) 360deg
+  );
+  -webkit-mask-image: var(--mask-image);
+  mask-image: var(--mask-image);
+}
+</style>
+<script>
+
+    /*--------------------
+Vars
+--------------------*/
+const canvas = document.querySelector('#canvas');
+const ctx = canvas.getContext('2d');
+const win = {
+  w: window.innerWidth,
+  h: window.innerHeight };
+
+const mouse = {
+  x: win.w * 0.5,
+  y: win.h * 0.5,
+  lerpX: win.w * 0.5,
+  lerpY: win.h * 0.5,
+  stepX: 0,
+  stepY: 0,
+  oldStepX: 0,
+  oldStepY: 0,
+  angle: 0 };
+
+const opts = {
+  cellSize: 40,
+  pawRadius: 94,
+  pawHeight: 200,
+  pawRandomStep: 0.2,
+  bodyHeight: 20,
+  spiderOffsetX: 30,
+  spiderOffsetY: 40,
+  shadowY: 0.3,
+  speed: 0.12,
+  stop: false,
+  jump: 0 };
+
+let cols = 0;
+let rows = 0;
+
+/*--------------------
+Lerp
+--------------------*/
+const lerp = (a, b, c) => {
+  return (1 - c) * a + c * b;
+};
+
+/*--------------------
+Random
+--------------------*/
+const random = (start, range) => {
+  return start - range + Math.random() * range * 2;
+};
+
+/*--------------------
+Resize
+--------------------*/
+const handleResize = () => {
+  win.w = window.innerWidth;
+  win.h = window.innerHeight;
+  canvas.width = win.w;
+  canvas.height = win.h;
+  cols = Math.round(win.w / opts.cellSize) + 1;
+  rows = Math.round(win.h / opts.cellSize) + 1;
+};
+handleResize();
+window.addEventListener('resize', handleResize);
+
+/*--------------------
+Paws
+--------------------*/
+const Paws = [
+{ x: win.w * 0.5, y: win.h * 0.5 },
+{ x: win.w * 0.5, y: win.h * 0.5 },
+{ x: win.w * 0.5, y: win.h * 0.5 },
+{ x: win.w * 0.5, y: win.h * 0.5 },
+{ x: win.w * 0.5, y: win.h * 0.5 },
+{ x: win.w * 0.5, y: win.h * 0.5 },
+{ x: win.w * 0.5, y: win.h * 0.5 },
+{ x: win.w * 0.5, y: win.h * 0.5 }];
+
+
+/*--------------------
+Clear
+--------------------*/
+const clear = () => {
+  ctx.clearRect(0, 0, win.w, win.h);
+};
+
+/*--------------------
+Circle
+--------------------*/
+const circle = (x, y, r, c) => {
+  ctx.fillStyle = c;
+  ctx.beginPath();
+  ctx.ellipse(x, y, r, r, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.closePath();
+};
+
+/*--------------------
+Rect
+--------------------*/
+const rect = (x, y, r, c) => {
+  ctx.fillStyle = c;
+  ctx.fillRect(x, y, r, r);
+};
+
+/*--------------------
+Walk
+--------------------*/
+const walk = () => {
+  let ind = 0;
+  Array(10).
+  fill().
+  forEach((a, i) => {
+    const theta = i / 10;
+    if (i % 5 === 0) return;
+    const x = random(
+    mouse.x + cols * 0.5 + opts.pawRadius * Math.sin(theta * Math.PI * 2),
+    opts.pawRadius * opts.pawRandomStep);
+
+    const y = random(
+    mouse.y + rows * 0.5 + opts.pawRadius * Math.cos(theta * Math.PI * 2),
+    opts.pawRadius * opts.pawRandomStep);
+
+
+    gsap.to(Paws[ind++], {
+      x,
+      y,
+      duration: opts.speed,
+      ease: 'power3.out()',
+      delay: (i + 2) % 4 * 0.1 });
+
+  });
+};
+
+/*--------------------
+Check Step
+--------------------*/
+const checkStep = () => {
+  mouse.stepX = Math.round(mouse.x / win.w * (cols - 1)) * opts.cellSize;
+  mouse.stepY = Math.round(mouse.y / win.h * (rows - 1)) * opts.cellSize;
+
+  if (mouse.oldStepX !== mouse.stepX || mouse.oldStepY !== mouse.stepY) {
+    walk();
+  }
+
+  mouse.oldStepX = mouse.stepX;
+  mouse.oldStepY = mouse.stepY;
+  // rect(mouse.stepX, mouse.stepY, opts.cellSize, 'rgba(255, 0, 0, .1)')
+};
+
+/*--------------------
+Draw Spider
+--------------------*/
+const drawSpider = () => {
+  const x = mouse.lerpX - opts.spiderOffsetX;
+  const y = mouse.lerpY - opts.spiderOffsetY;
+
+  // Shadows
+  Paws.forEach((p, i) => {
+    ctx.strokeStyle = '#eee';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, y + opts.bodyHeight);
+    const x2 = lerp(x, p.x, 0.5);
+    const y2 = lerp(y + opts.jump, p.y, opts.shadowY);
+    ctx.quadraticCurveTo(x2, y2, p.x, p.y);
+    ctx.stroke();
+    ctx.closePath();
+  });
+
+  // Paws
+  Paws.forEach((p, i) => {
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(x, y + opts.jump);
+    const x1 = lerp(x, p.x, 0.5);
+    const y1 = lerp(y + opts.jump, p.y - opts.pawHeight, 0.5);
+    ctx.quadraticCurveTo(x1, y1, p.x, p.y);
+    ctx.stroke();
+    ctx.closePath();
+  });
+
+  // Head
+};
+
+/*--------------------
+Draw Mouse
+--------------------*/
+const drawMouse = () => {
+  mouse.lerpX = lerp(mouse.lerpX, mouse.x, 0.1);
+  mouse.lerpY = lerp(mouse.lerpY, mouse.y, 0.1);
+
+  if (opts.stop) {
+    mouse.lerpX = win.w * 0.5;
+    mouse.lerpY = win.h * 0.5;
+    mouse.x = win.w * 0.5;
+    mouse.y = win.h * 0.5;
+  }
+  checkStep();
+};
+
+/*--------------------
+Draw
+--------------------*/
+const draw = t => {
+  clear();
+  drawMouse();
+  drawSpider();
+  requestAnimationFrame(draw);
+};
+draw();
+
+/*--------------------
+GUI
+--------------------*/
+const gui = new dat.GUI();
+const f = gui.addFolder('Settings');
+f.add(opts, 'spiderOffsetX', -100, 100, 1);
+f.add(opts, 'spiderOffsetY', -100, 100, 1);
+f.add(opts, 'pawRadius', 0, 100, 1).onChange(walk);
+f.add(opts, 'pawHeight', 0, 200, 1);
+f.add(opts, 'pawRandomStep', 0, 1, 0.1);
+f.add(opts, 'bodyHeight', 0, 100, 1);
+f.add(opts, 'shadowY', 0, 1, 0.1);
+f.add(opts, 'speed', 0, 0.3, 0.01);
+f.add(opts, 'cellSize', 10, 200, 1).onChange(handleResize);
+f.add(opts, 'stop');
+f.close();
+
+/*--------------------
+Mouse
+--------------------*/
+const handleMouseMove = e => {
+  if (opts.stop) {
+    mouse.lerpX = win.w * 0.5;
+    mouse.lerpY = win.h * 0.5;
+    mouse.x = win.w * 0.5;
+    mouse.y = win.h * 0.5;
+  } else {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }
+};
+const handleTouchMove = e => {
+  mouse.x = e.touches[0].clientX;
+  mouse.y = e.touches[0].clientY;
+};
+const handleMouseDown = () => {
+  if (opts.stop) return;
+  gsap.killTweensOf(opts);
+  gsap.to(opts, {
+    jump: opts.bodyHeight,
+    duration: 0.5,
+    ease: 'power3.out' });
+
+};
+const handleMouseUp = () => {
+  if (opts.stop) return;
+  gsap.killTweensOf(opts);
+  gsap.to(opts, {
+    jump: 0,
+    duration: 2,
+    ease: 'elastic(1.4, 0.1)' });
+
+};
+window.addEventListener('mousemove', handleMouseMove);
+window.addEventListener('touchstart', handleTouchMove);
+window.addEventListener('touchmove', handleTouchMove);
+window.addEventListener('mousedown', handleMouseDown);
+window.addEventListener('mouseup', handleMouseUp);
+
+
+
+</script>
+  <style>
+@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
+*{
+ 
+ 
+}
+
+body {
+
+  font-family: "Luckiest Guy", cursive;
+}
+
+h1 {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-size: 8em;
+  padding: 0;
+  color: white;
+  text-shadow: 0 0.1em 20px black, 0.05em -0.03em 0 black, 0.05em 0.005em 0 black, 0em 0.08em 0 black, 0.05em 0.08em 0 black, 0px -0.03em 0 black, -0.03em -0.03em 0 black, -0.03em 0.08em 0 black, -0.03em 0 0 black;
+}
+h1 span {
+  transform: scale(0.9);
+  display: inline-block;
+}
+h1 span:first-child {
+  -webkit-animation: bop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite alternate;
+          animation: bop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite alternate;
+}
+h1 span:last-child {
+  -webkit-animation: bopB 1s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite alternate;
+          animation: bopB 1s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite alternate;
+}
+
+@-webkit-keyframes bop {
+  0% {
+    transform: scale(0.9);
+  }
+  50%, 100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bop {
+  0% {
+    transform: scale(0.9);
+  }
+  50%, 100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes bopB {
+  0% {
+    transform: scale(0.9);
+  }
+  80%, 100% {
+    transform: scale(1) rotateZ(-3deg);
+  }
+}
+@keyframes bopB {
+  0% {
+    transform: scale(0.9);
+  }
+  80%, 100% {
+    transform: scale(1) rotateZ(-3deg);
+  }
+}
+
+@-webkit-keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+    text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.4), 1px -1px 0 rgba(255, 255, 255, 0.4), -1px 1px 0 rgba(255, 255, 255, 0.4), 1px 1px 0 rgba(255, 255, 255, 0.4), 0 -2px 8px, 0 0 2px, 0 0 5px #ff7e00, 0 0 15px #ff4444, 0 0 2px #ff7e00, 0 2px 3px #000;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+    text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.4), 1px -1px 0 rgba(255, 255, 255, 0.4), -1px 1px 0 rgba(255, 255, 255, 0.4), 1px 1px 0 rgba(255, 255, 255, 0.4), 0 -2px 8px, 0 0 2px, 0 0 5px #ff7e00, 0 0 15px #ff4444, 0 0 2px #ff7e00, 0 2px 3px #000;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+/*
+ * Webfont: CoreCircus by S-Core
+ * URL: http://www.myfonts.com/fonts/s-core/core-circus/regular/
+ * Copyright: Copyright (c) 2013 by S-Core Co., Ltd.. All rights reserved.
+ * Licensed pageviews: 10,000
+*
+ * Webfont: CoreCircus2DDot1 by S-Core
+ * URL: http://www.myfonts.com/fonts/s-core/core-circus/dot1/
+ * Copyright: Copyright (c) 2013 by S-Core Co., Ltd.. All rights reserved.
+ * Licensed pageviews: 10,000
+*/
+@font-face {
+  font-family: "CoreCircus2DDot1";
+  src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.eot");
+  src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.eot?#iefix") format("embedded-opentype"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.woff2") format("woff2"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.woff") format("woff"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_1_0.ttf") format("truetype");
+}
+@font-face {
+  font-family: "CoreCircus";
+  src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.eot");
+  src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.eot?#iefix") format("embedded-opentype"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.woff2") format("woff2"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.woff") format("woff"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/333BF4_8_0.ttf") format("truetype");
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+canvas {
+  height: 100vh;
+  width: 100%;
+}
+
+.credits {
+  position: fixed;
+  z-index: 10;
+  bottom: 20px;
+  left: 20px;
+}
+.credits a {
+  text-decoration: none;
+  color: #000;
+}
+.credits span {
+  font-size: 11px;
+}
+
+.credits h2 {
+  margin: -1px 0;
+  font-size: 14.1px;
+  font-weight: normal;
+}
+    html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  scroll: none;
+}
+
+body {
+  background-color: #000000;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=1, startColorstr='#FF2F5363', endColorstr='#FF1B2628');
+ 
+  background-size: 100%;
+  background-image: -moz-radial-gradient(center, ellipse cover, #000000 0%, #6e744d85 80%);
+  background-image: -webkit-radial-gradient(center, ellipse cover, #000000 0%, #6f773e3d 80%);
+  background-image: radial-gradient(ellipse cover at center, #000000 0%, #727c39 80%);
+  overflow: hidden;
+}
+
+[class*="spider"] {
+  position: absolute;
+  height: 40px;
+  width: 50px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin: 40px 0 0 0;
+  background: #110D04;
+}
+[class*="spider"] *, [class*="spider"]:before, [class*="spider"]:after, [class*="spider"] :after, [class*="spider"] :before {
+  position: absolute;
+  content: "";
+}
+[class*="spider"]:before {
+  width: 1px;
+  background: #AAAAAA;
+  left: 50%;
+  top: -320px;
+  height: 320px;
+}
+[class*="spider"] .eye {
+  top: 16px;
+  height: 14px;
+  width: 12px;
+  background: #FFFFFF;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+[class*="spider"] .eye:after {
+  top: 6px;
+  height: 5px;
+  width: 5px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: black;
+}
+[class*="spider"] .eye.left {
+  left: 14px;
+}
+[class*="spider"] .eye.left:after {
+  right: 3px;
+}
+[class*="spider"] .eye.right {
+  right: 14px;
+}
+[class*="spider"] .eye.right:after {
+  left: 3px;
+}
+[class*="spider"] .leg {
+  top: 6px;
+  height: 12px;
+  width: 14px;
+  border-top: 2px solid #110D04;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  z-index: -1;
+}
+[class*="spider"] .leg.left {
+  left: -8px;
+  -moz-transform-origin: top right;
+  -ms-transform-origin: top right;
+  -webkit-transform-origin: top right;
+  transform-origin: top right;
+  -moz-transform: rotate(36deg) skewX(-20deg);
+  -ms-transform: rotate(36deg) skewX(-20deg);
+  -webkit-transform: rotate(36deg) skewX(-20deg);
+  transform: rotate(36deg) skewX(-20deg);
+  border-left: 2px solid #110D04;
+  -moz-border-radius: 60% 0 0 0;
+  -webkit-border-radius: 60%;
+  border-radius: 60% 0 0 0;
+  -moz-animation: legs-wriggle-left 1s 0s infinite;
+  -webkit-animation: legs-wriggle-left 1s 0s infinite;
+  animation: legs-wriggle-left 1s 0s infinite;
+}
+[class*="spider"] .leg.right {
+  right: -8px;
+  -moz-transform-origin: top left;
+  -ms-transform-origin: top left;
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+  -moz-transform: rotate(-36deg) skewX(20deg);
+  -ms-transform: rotate(-36deg) skewX(20deg);
+  -webkit-transform: rotate(-36deg) skewX(20deg);
+  transform: rotate(-36deg) skewX(20deg);
+  border-right: 2px solid #110D04;
+  -moz-border-radius: 0 60% 0 0;
+  -webkit-border-radius: 0;
+  border-radius: 0 60% 0 0;
+  -moz-animation: legs-wriggle-right 1s 0.2s infinite;
+  -webkit-animation: legs-wriggle-right 1s 0.2s infinite;
+  animation: legs-wriggle-right 1s 0.2s infinite;
+}
+[class*="spider"] .leg:nth-of-type(2) {
+  top: 14px;
+  left: -11px;
+  -moz-animation: legs-wriggle-left 1s 0.8s infinite;
+  -webkit-animation: legs-wriggle-left 1s 0.8s infinite;
+  animation: legs-wriggle-left 1s 0.8s infinite;
+}
+[class*="spider"] .leg:nth-of-type(3) {
+  top: 22px;
+  left: -12px;
+  -moz-animation: legs-wriggle-left 1s 0.2s infinite;
+  -webkit-animation: legs-wriggle-left 1s 0.2s infinite;
+  animation: legs-wriggle-left 1s 0.2s infinite;
+}
+[class*="spider"] .leg:nth-of-type(4) {
+  top: 31px;
+  left: -10px;
+  -moz-animation: legs-wriggle-left 1s 0.4s infinite;
+  -webkit-animation: legs-wriggle-left 1s 0.4s infinite;
+  animation: legs-wriggle-left 1s 0.4s infinite;
+}
+[class*="spider"] .leg:nth-of-type(6) {
+  top: 14px;
+  right: -11px;
+  -moz-animation: legs-wriggle-right 1s 0.4s infinite;
+  -webkit-animation: legs-wriggle-right 1s 0.4s infinite;
+  animation: legs-wriggle-right 1s 0.4s infinite;
+}
+[class*="spider"] .leg:nth-of-type(7) {
+  top: 22px;
+  right: -12px;
+  -moz-animation: legs-wriggle-right 1s 0.7s infinite;
+  -webkit-animation: legs-wriggle-right 1s 0.7s infinite;
+  animation: legs-wriggle-right 1s 0.7s infinite;
+}
+[class*="spider"] .leg:nth-of-type(8) {
+  top: 31px;
+  right: -10px;
+  -moz-animation: legs-wriggle-right 1s 0.3s infinite;
+  -webkit-animation: legs-wriggle-right 1s 0.3s infinite;
+  animation: legs-wriggle-right 1s 0.3s infinite;
+}
+
+.spider_0 {
+  left: 5%;
+  -moz-animation: spider-move-0 5s infinite;
+  -webkit-animation: spider-move-0 5s infinite;
+  animation: spider-move-0 5s infinite;
+}
+
+.spider_1 {
+  left: 20%;
+  -moz-animation: spider-move-1 5s infinite;
+  -webkit-animation: spider-move-1 5s infinite;
+  animation: spider-move-1 5s infinite;
+}
+
+.spider_2 {
+  left: 35%;
+  -moz-animation: spider-move-2 5s infinite;
+  -webkit-animation: spider-move-2 5s infinite;
+  animation: spider-move-2 5s infinite;
+}
+
+.spider_3 {
+  right: 35%;
+  margin-top: 160px;
+  -moz-animation: spider-move-3 5s infinite;
+  -webkit-animation: spider-move-3 5s infinite;
+  animation: spider-move-3 5s infinite;
+}
+
+.spider_4 {
+  right: 20%;
+  margin-top: 50px;
+  -moz-animation: spider-move-4 5s infinite;
+  -webkit-animation: spider-move-4 5s infinite;
+  animation: spider-move-4 5s infinite;
+}
+
+.spider_5 {
+  right: 5%;
+  margin-top: 210px;
+  -moz-animation: spider-move-5 5s infinite;
+  -webkit-animation: spider-move-5 5s infinite;
+  animation: spider-move-5 5s infinite;
+}
+
+
+
+.web-right {
+
+  position: absolute;
+  width:90%;
+  width: auto;
+  right: -10px;
+  top: -10px;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+.web-left {
+  position: absolute;
+  width:60%;
+  left: -10px;
+  top: -10px;
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  z-index: -1;
+  opacity: 0.2;
+}
+
+
+
+@-moz-keyframes legs-wriggle-left {
+  0%, 100% {
+    -moz-transform: rotate(36deg) skewX(-20deg);
+    transform: rotate(36deg) skewX(-20deg);
+  }
+  25%, 75% {
+    -moz-transform: rotate(15deg) skewX(-20deg);
+    transform: rotate(15deg) skewX(-20deg);
+  }
+  50% {
+    -moz-transform: rotate(45deg) skewX(-20deg);
+    transform: rotate(45deg) skewX(-20deg);
+  }
+}
+@-webkit-keyframes legs-wriggle-left {
+  0%, 100% {
+    -webkit-transform: rotate(36deg) skewX(-20deg);
+    transform: rotate(36deg) skewX(-20deg);
+  }
+  25%, 75% {
+    -webkit-transform: rotate(15deg) skewX(-20deg);
+    transform: rotate(15deg) skewX(-20deg);
+  }
+  50% {
+    -webkit-transform: rotate(45deg) skewX(-20deg);
+    transform: rotate(45deg) skewX(-20deg);
+  }
+}
+@keyframes legs-wriggle-left {
+  0%, 100% {
+    -moz-transform: rotate(36deg) skewX(-20deg);
+    -ms-transform: rotate(36deg) skewX(-20deg);
+    -webkit-transform: rotate(36deg) skewX(-20deg);
+    transform: rotate(36deg) skewX(-20deg);
+  }
+  25%, 75% {
+    -moz-transform: rotate(15deg) skewX(-20deg);
+    -ms-transform: rotate(15deg) skewX(-20deg);
+    -webkit-transform: rotate(15deg) skewX(-20deg);
+    transform: rotate(15deg) skewX(-20deg);
+  }
+  50% {
+    -moz-transform: rotate(45deg) skewX(-20deg);
+    -ms-transform: rotate(45deg) skewX(-20deg);
+    -webkit-transform: rotate(45deg) skewX(-20deg);
+    transform: rotate(45deg) skewX(-20deg);
+  }
+}
+@-moz-keyframes legs-wriggle-right {
+  0%, 100% {
+    -moz-transform: rotate(-36deg) skewX(20deg);
+    transform: rotate(-36deg) skewX(20deg);
+  }
+  25%, 75% {
+    -moz-transform: rotate(-15deg) skewX(20deg);
+    transform: rotate(-15deg) skewX(20deg);
+  }
+  50% {
+    -moz-transform: rotate(-45deg) skewX(20deg);
+    transform: rotate(-45deg) skewX(20deg);
+  }
+}
+@-webkit-keyframes legs-wriggle-right {
+  0%, 100% {
+    -webkit-transform: rotate(-36deg) skewX(20deg);
+    transform: rotate(-36deg) skewX(20deg);
+  }
+  25%, 75% {
+    -webkit-transform: rotate(-15deg) skewX(20deg);
+    transform: rotate(-15deg) skewX(20deg);
+  }
+  50% {
+    -webkit-transform: rotate(-45deg) skewX(20deg);
+    transform: rotate(-45deg) skewX(20deg);
+  }
+}
+@keyframes legs-wriggle-right {
+  0%, 100% {
+    -moz-transform: rotate(-36deg) skewX(20deg);
+    -ms-transform: rotate(-36deg) skewX(20deg);
+    -webkit-transform: rotate(-36deg) skewX(20deg);
+    transform: rotate(-36deg) skewX(20deg);
+  }
+  25%, 75% {
+    -moz-transform: rotate(-15deg) skewX(20deg);
+    -ms-transform: rotate(-15deg) skewX(20deg);
+    -webkit-transform: rotate(-15deg) skewX(20deg);
+    transform: rotate(-15deg) skewX(20deg);
+  }
+  50% {
+    -moz-transform: rotate(-45deg) skewX(20deg);
+    -ms-transform: rotate(-45deg) skewX(20deg);
+    -webkit-transform: rotate(-45deg) skewX(20deg);
+    transform: rotate(-45deg) skewX(20deg);
+  }
+}
+@-moz-keyframes spider-move-0 {
+  0%, 100% {
+    margin-top: 220px;
+  }
+  31% {
+    margin-top: calc(220px + 110px);
+  }
+}
+@-webkit-keyframes spider-move-0 {
+  0%, 100% {
+    margin-top: 220px;
+  }
+  31% {
+    margin-top: calc(220px + 110px);
+  }
+}
+@keyframes spider-move-0 {
+  0%, 100% {
+    margin-top: 220px;
+  }
+  31% {
+    margin-top: calc(220px + 110px);
+  }
+}
+@-moz-keyframes spider-move-1 {
+  0%, 100% {
+    margin-top: 140px;
+  }
+  48% {
+    margin-top: calc(140px + 109px);
+  }
+}
+@-webkit-keyframes spider-move-1 {
+  0%, 100% {
+    margin-top: 140px;
+  }
+  48% {
+    margin-top: calc(140px + 109px);
+  }
+}
+@keyframes spider-move-1 {
+  0%, 100% {
+    margin-top: 140px;
+  }
+  48% {
+    margin-top: calc(140px + 109px);
+  }
+}
+@-moz-keyframes spider-move-2 {
+  0%, 100% {
+    margin-top: 155px;
+  }
+  32% {
+    margin-top: calc(155px + 107px);
+  }
+}
+@-webkit-keyframes spider-move-2 {
+  0%, 100% {
+    margin-top: 155px;
+  }
+  32% {
+    margin-top: calc(155px + 107px);
+  }
+}
+@keyframes spider-move-2 {
+  0%, 100% {
+    margin-top: 155px;
+  }
+  32% {
+    margin-top: calc(155px + 107px);
+  }
+}
+@-moz-keyframes spider-move-3 {
+  0%, 100% {
+    margin-top: 226px;
+  }
+  48% {
+    margin-top: calc(226px + 107px);
+  }
+}
+@-webkit-keyframes spider-move-3 {
+  0%, 100% {
+    margin-top: 226px;
+  }
+  48% {
+    margin-top: calc(226px + 107px);
+  }
+}
+@keyframes spider-move-3 {
+  0%, 100% {
+    margin-top: 226px;
+  }
+  48% {
+    margin-top: calc(226px + 107px);
+  }
+}
+@-moz-keyframes spider-move-4 {
+  0%, 100% {
+    margin-top: 66px;
+  }
+  31% {
+    margin-top: calc(66px + 40px);
+  }
+}
+@-webkit-keyframes spider-move-4 {
+  0%, 100% {
+    margin-top: 66px;
+  }
+  31% {
+    margin-top: calc(66px + 40px);
+  }
+}
+@keyframes spider-move-4 {
+  0%, 100% {
+    margin-top: 66px;
+  }
+  31% {
+    margin-top: calc(66px + 40px);
+  }
+}
+@-moz-keyframes spider-move-5 {
+  0%, 100% {
+    margin-top: 69px;
+  }
+  48% {
+    margin-top: calc(69px + 34px);
+  }
+}
+@-webkit-keyframes spider-move-5 {
+  0%, 100% {
+    margin-top: 69px;
+  }
+  48% {
+    margin-top: calc(69px + 34px);
+  }
+}
+@keyframes spider-move-5 {
+  0%, 100% {
+    margin-top: 69px;
+  }
+  48% {
+    margin-top: calc(69px + 34px);
+  }
+}
+  </style>
