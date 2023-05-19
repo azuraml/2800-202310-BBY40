@@ -180,7 +180,7 @@ app.get("/quiz", (req, res) => {
 	app.get("/progress", (req, res) => {
 		res.render('progress');
 	  });
-  	app.get("/web", (req, res) => {
+  	app.get("/web", function(req, res)  {
 		res.render('web');
 	  });
   
