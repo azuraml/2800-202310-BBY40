@@ -1,13 +1,43 @@
-<%- include("templates/header", {cssPage: "homepage"}) %> 
+<%- include("templates/header", {cssPage: "homepage"}) %>
 
 <div class="col-md-12 text-center">
-    <img src="booksApple.jpeg" alt="" class="img-rounded" style="width: 150px; height: 150px;">
-    <h1 class="text-center pb-2 pt-2">Achieve your goals with Student Success Web</h1>
-    <h5 class="fw-normal text-center px-3">Student Success Web is the number one platform to empower and support students who are struggling or dropping out of school by offering personalized learning plans and identifying their learning style!</h5>
-    <a class="btn btn-warning text-center btn-lg" href="/profile">
-        Get started
-        <svg class="bi ms-1" width="20" height="20"><use xlink:href="#arrow-right-short"></use></svg>
+    <img src="tutor2.png" alt=""  style="width: 90%; height: 40%;">
+    <br> <br>
+    <h1 class="text-center pb-2 pt-2">Achieve your goals with 
+        <a href="#" id="student" style="text-decoration: none; color:white;">Student</a> 
+        <a href="#" id="success" style="text-decoration: none; color: white;">Success</a> 
+        <a href="#" id="web" style="text-decoration: none; color: white;">Web</a>
+    </h1>
+    <br>
+    <a  class="btn btn-light text-center btn-lg " href="/login" style="margin-right:12px;">
+        Log In
+    </a>
+
+    <a class="btn btn-light text-center btn-lg " href="/signup">
+        Sign Up
     </a>
 </div>
 
 <%- include("templates/footer") %>
+<script>
+    let clickOrder = [];
+
+document.getElementById('student').onclick = function() {
+    clickOrder.push('student');
+}
+
+document.getElementById('success').onclick = function() {
+    clickOrder.push('success');
+}
+
+document.getElementById('web').onclick = function() {
+    if (clickOrder.length === 2 && clickOrder[0] === 'student' && clickOrder[1] === 'success') {
+        // Correct order, redirect to /student route
+        window.location.href = "/web";
+    } else {
+        // Incorrect order, reset the click order
+        clickOrder = [];
+    }
+}
+
+</script>

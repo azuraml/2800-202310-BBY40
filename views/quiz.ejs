@@ -31,10 +31,11 @@
         <h1 id="display-question"></h1>
         <!-- Modal for when an option is not selected -->
         <div class="modal-container" id="option-modal">
-          <h1>Please Pick An Option</h1>
-          <button onclick="closeOptionModal()">Continue</button>
+          <h1 style="color:red;">Please Pick An Option</h1>
+          <button style="color:red; background-color: yellow;" onclick="closeOptionModal()">Continue</button>
         </div>
         <!-- End of option modal -->
+        <br><br><br>
         <div>
           <input type="radio" class="bubbly-button" id="option-one" name="option" data-question-index="1" value="optionA" />
           <label for="option-one" class="bubbly-button" class="option" id="option-one-label"></label>
@@ -42,12 +43,13 @@
           <input type="radio" id="option-two" class="bubbly-button" name="option" data-question-index="2" value="optionB" />
           <label for="option-two" class="bubbly-button" class="option" id="option-two-label"></label>
           <br><br>
-          <input type="radio" id="option-three" name="option" data-question-index="3" value="optionC" />
+          <input type="radio"class="bubbly-button"  id="option-three" name="option" data-question-index="3" value="optionC" />
           <label for="option-three" class="bubbly-button" class="option" id="option-three-label"></label>
           <br><br>
-          <input type="radio" id="option-four" name="option" data-question-index="4" value="optionD" />
+          <input type="radio"class="bubbly-button"  id="option-four" name="option" data-question-index="4" value="optionD" />
           <label for="option-four" class="bubbly-button" class="option" id="option-four-label"></label>
         </div>
+        <br><br><br>
         <button class="ripple" onclick="handleNextQuestion()">Next Question</button>
       </div>
       <script src="quiz.js"></script>
@@ -69,7 +71,13 @@
 
 
 
+
 <style>
+  /* Add this CSS to your style.css file */
+.bubbly-button:checked + label {
+  background-color: rgb(122, 122, 122);
+}
+
     *{
     margin: 0;
     padding: 0;
@@ -122,7 +130,7 @@ main{
 
 .game-details-container{
     width: 80%;
-    height: 4rem;
+    height: 7rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -134,7 +142,7 @@ main{
 
 .game-question-container{
     width: 80%;
-    height: 8rem;
+    height: 9rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -159,7 +167,7 @@ main{
 
 .game-options-container span{
     width: 80%;
-    height: 3rem;
+    height: 5rem;
     
     border: 1px solid rgb(255, 255, 255);
     border-radius: 20px;
@@ -179,14 +187,14 @@ input[type=radio]:checked ~ .option {
 }
 
 .next-button-container{
-    width: 50%;
-    height: 3rem;
+    width: 60%;
+    height: 3.8rem;
     display: flex;
     justify-content: center;
 }
 .next-button-container button{
     width: 8rem;
-    height: 2rem;
+    height: 3rem;
     border-radius: 10px;
     background: none;
     color: rgb(255, 255, 255);
@@ -217,7 +225,7 @@ input[type=radio]:checked ~ .option {
 }
 
 .modal-content-container{
-    height: 20rem;
+    height: 25rem;
     width: 25rem;
 
     display: flex;
@@ -380,21 +388,22 @@ input[type=radio]:checked ~ .option {
 
 
 /* Ripple effect */
+/* Ripple effect */
 .ripple {
   background-position: center;
   transition: background 0.8s;
 }
 .ripple:hover {
-  background: #4a96c9 radial-gradient(circle, transparent 1%, #186599 1%) center/15000%;
-  color:white;
+  background: #ffffff radial-gradient(circle, transparent 1%, #ffffff 1%) center/15000%;
+  color:rgb(0, 0, 0);
 }
 .ripple:active {
-  color:white;
-  background-color: #2e709c;
+  color:rgb(0, 0, 0);
+  background-color: #ffee00;
   background-size: 100%;
+
   transition: background 0s;
 }
-
 /* Button style */
 button {
  
@@ -445,7 +454,7 @@ button {
     display: inline-block;
     font-size: 1em;
     padding: 0.5em 1em;
-    height:3.7em;
+    height:4.3em;
     width:20em;
     appearance: none;
     background-color: #fff;
@@ -486,9 +495,12 @@ button {
   }
   .bubbly-button:active {
     transform: scale(0.9);
-    background-color: #FFF;
-    box-shadow: 0 2px 25px #FFF;
-  }
+    background-color: #d3d3d3; /* Make the background light grey */
+    box-shadow: 0 2px 25px #d3d3d3; /* Adjust the shadow to light grey */
+}
+.bubbly-button:checked {
+    background-color: #d3d3d3; /* Set the background to light grey */
+}
   .bubbly-button.animate:before {
     display: block;
     animation: topBubbles ease-in-out 0.75s forwards;
@@ -575,7 +587,7 @@ button {
 
   html {
     height: 110%;
-    background: linear-gradient(to bottom, #000000 0%, #040e35 100%);
+    background: linear-gradient(0deg,#ffd90086, rgb(0, 0, 0) 40%);
     overflow-y: hidden;
   }
   

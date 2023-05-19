@@ -1,0 +1,50 @@
+<%- include("templates/header", {cssPage: ""}) %>
+
+<div class="text-center">
+    <br>
+    <h2 class="text-center px-4 text-white">Tell me about the school-related tasks you do on a typical day.</h2>
+
+    <br>
+    <form id="tasks">
+        <label class="ms-2 w-50 text-white">Task</label><label class="ms-2 w-25 text-white">Hours</label>
+
+        <input class="task ms-2 w-50 p-1" type="text" placeholder="Math homework"><input class="dur ms-2 w-25 p-1" type="number" placeholder="3">
+        <input class="task ms-2 w-50 p-1" type="text" placeholder="Physics lab"><input class="dur ms-2 w-25 p-1" type="number" placeholder="1.5">
+        <input class="task ms-2 w-50 p-1" type="text" placeholder="English journaling"><input class="dur ms-2 w-25 p-1" type="number" placeholder="1">
+    </form>
+
+    <br>
+    <button id="mbtn" class="btn btn-warning btn-sm">
+        More +
+    </button>
+
+    <br><br><br>
+    <button id="cbtn" class="btn btn-light btn-lg">
+        Continue
+        <svg class="bi ms-1" width="20" height="20"><use xlink:href="#arrow-right-short"></use></svg>
+    </button>
+</div>
+
+<script>
+    document.querySelector("#mbtn").addEventListener("click", function() {
+        document.querySelector("#tasks").insertAdjacentHTML("beforeend", `
+        <input class="task ms-2 w-50 p-1" type="text"><input class="dur ms-2 w-25 p-1" type="number">
+        `)
+    })
+
+    document.querySelector("#cbtn").addEventListener("click", function() {
+        const taskCbxs = document.querySelectorAll(".task");
+        const durCbxs = document.querySelectorAll(".dur");
+        let taskStrs = [];
+        for (let i = 0; i < taskCbxs.length; i++) {
+            const taskCbx = taskCbxs[i];
+            const durCbx = durCbxs[i];
+            if (taskCbx.value != "") {
+                taskStrs.push(taskCbx.value + ".-." + durCbx.value);
+            }
+        }
+        document.location.href = "/studyHabitsQ2/?q=" + taskStrs.join(".--.") + ".---.";
+    })
+</script>
+
+<%- include("templates/footer") %>
