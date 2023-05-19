@@ -19,14 +19,16 @@
       </a>
     </div>
     <div class="flex-slide work">
-      <div class="flex-title" href='/resources'><br>Resources</div>
+
+      <div class="flex-title" onclick="redirectToResources()"><br>Resources</div>
+      
       <div class="flex-about"><p>Listing relevant snippets of work:</p>
-        <ul>
+        <!-- <ul>
           <li>First piece of work</li>
           <li>Second piece of work</li>
           <li>Third piece of work</li>
-        </ul>
-      </div>
+        </ul> -->
+      </div></a>
     </div>
 
 <div class="flex-slide contact">
@@ -48,6 +50,10 @@
 <script>
   function redirectToProfile() {
     window.location.href = '/profile'; // Replace "/profile" with the actual route you want to navigate to
+  }
+
+  function redirectToResources() {
+    window.location.href = '/resources'; // Replace "/profile" with the actual route you want to navigate to
   }
 </script>
   <style>

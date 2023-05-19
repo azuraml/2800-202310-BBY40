@@ -253,28 +253,6 @@ function closeOptionModal() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var animateButton = function(e) {
 
   e.preventDefault;
