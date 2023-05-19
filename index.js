@@ -6,7 +6,7 @@ require("dotenv").config();
 // const fs = require('fs');
 // const path = require('path');
 
-const { Configuration, OpenAIApi }= require ('openai');
+// const { Configuration, OpenAIApi }= require ('openai');
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -14,6 +14,7 @@ const bcrypt = require("bcrypt");
 const url = require("url");
 const saltRounds = 12;
 const nodemailer = require('nodemailer');
+const axios = require('axios');
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -29,15 +30,15 @@ const mongodb_user = process.env.MONGODB_USER;
 const mongodb_password = process.env.MONGODB_PASSWORD;
 const mongodb_database = process.env.MONGODB_DATABASE;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
-const configuration = new Configuration ({
-apiKey:	process.env.OPENAI_API_KEY,});
+//const configuration = new Configuration ({
+//apiKey:	process.env.OPENAI_API_KEY,});
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 /* END secret section */
 
 var { database } = include("databaseConnection");
 
 const userCollection = database.db(mongodb_database).collection("users");
-const userPersonalInfoCollection = database.db(mongodb_database).collection("userPersonalInfo")
+const userPersonalInfoCollection = database.db(mongodb_database).collection("userPersonalInfo");
 app.set("view engine", "ejs");
 
 const navLinks = [
@@ -182,6 +183,23 @@ app.get("/quiz", (req, res) => {
 	  });
   
 
+	  function sendPostRequest(username) {
+		const postData = {
+		  //  data to be sent in the request body
+		  username: username,
+		};
+	  
+		axios.post('https://lihcxopqef.eu08.qoddiapp.com/', postData)
+		  .then((response) => {
+			// Handle the response from the server
+			console.log(response.data);
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during the request
+			console.error(error);
+		  });
+	  }
+
 app.get('/login', (req,res) => {
 	var missingUsername = req.query.missing;
 	
@@ -218,7 +236,7 @@ app.post('/loggingin', async (req,res) => {
 	  req.session.username = result[0].username;
 	  req.session.cookie.maxAge = expireTime;
 	  req.session.user_type = result[0].user_type;
-	 
+	  sendPostRequest(result[0].username); //Trigger POST request
 	  res.redirect("/members");
 	  
 	} else {
