@@ -15,6 +15,7 @@ const client = new MongoClient(atlasURI, {
   useUnifiedTopology: true,
 });
 
+
 const connectToDatabase = async () => {
   try {
     await client.connect();

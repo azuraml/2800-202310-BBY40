@@ -4,6 +4,7 @@ import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import bodyParser from'body-parser';
 
 dotenv.config();
 
@@ -25,18 +26,13 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 const app = express();
-app.use(cors());
-app.use(express.json());
-// Conversation history storage
-const collection = client.db(mongodb_database).collection('conversation');
-
+const dbName = 'sessions';
 var mongoStore = MongoStore.create({
   mongoUrl: `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/sessions`,
   crypto: {
     secret: mongodb_session_secret,
   },
 });
-
 app.use(
   session({
     secret: node_session_secret,
@@ -46,7 +42,32 @@ app.use(
   })
 );
 
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false })); // Add this line before express.json()
 
+app.use(express.json());
+
+// Conversation history storage
+
+app.use(bodyParser.json());
+const collection = client.db(mongodb_database).collection('conversation');
+
+
+app.use((req, res, next) => {
+  console.log('Session:', req.session);
+  next();
+});
+app.post('/session', (req, res) => {
+  const username = req.body.username;
+
+  // Process the session data as needed
+  req.session.authenticated = true;
+  req.session.usernames = req.body.username;
+  console.log('Received session data:', req.session.usernames);
+
+  res.sendStatus(200); // Send a response indicating success
+});
 
 
 
@@ -58,16 +79,18 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
-    const prompt = req.body.prompt;
+    const prompt ="Can you create me a learning plan for " + req.body.prompt +" also refer to the user's name" ;
     let botResponse = '';
-
+    const username = req.body.username;
+    console.log('name of user:', req.body.username);
+    
     // Get conversation history from MongoDB
     const conversationHistory = await collection.find().toArray();
 
     // Check if conversation history exists
     if (conversationHistory.length === 0) {
       // Set initial response if no conversation exists
-      botResponse = "Hi, I am your personal tutor named Jacob.";
+      botResponse = `Hi ${username}, I am your personal tutor named Jacob.`;
     } else {
       const response = await openai.createCompletion({
         model: 'text-davinci-003',
