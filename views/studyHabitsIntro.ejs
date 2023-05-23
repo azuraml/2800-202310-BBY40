@@ -1,5 +1,37 @@
 <%- include("templates/header", {cssPage: ""}) %> 
 
+<style>
+    #tblHeader > th {
+        font-size: 22px;
+    }
+    th {
+        padding: 0;
+        color:rgb(255, 255, 255);
+        padding-right: 30px;
+        font-size: 16px;
+        text-align: left;
+        white-space: nowrap;
+    }
+    table {
+        margin-left: 20px;
+    }
+
+    /* MODIFY HERE */
+    .schoolTask, .schoolTask > th {
+        color:rgb(255, 255, 255);
+    }
+    .breakTask, .breakTask > th {
+        color:rgb(255, 225, 78);
+    }
+    .peripheralTask, .peripheralTask > th {
+        color:rgb(149, 114, 255);
+    }
+    .lateTask, .lateTask > th {
+        color:rgb(255, 0, 0);
+    }
+</style>
+
+
 <div class="col-md-12 text-center">
     <br><br><br><br>
     <h1 class="text-center pt-5 px-4 text-white">Create an effective schedule with My Study Habits!</h1>
@@ -9,6 +41,21 @@
         Continue
         <svg class="bi ms-1" width="20" height="20"><use xlink:href="#arrow-right-short"></use></svg>
     </a>
+    
+    <% if (studySchedule.length > 0) { %>
+        <br><br><br><br>
+        <h3 class="text-center pt-5 px-4 text-white">Here is your saved schedule:</h3>
+
+        <br><br><br>
+        <table class="text-center">
+            <tr id="tblHeader"><th>Time</th><th>Task</th><th>Duration</th></tr>
+
+            <% for (let i = 0; i < studySchedule.length; i++) { %>
+                <% const task = studySchedule[i]; %>
+                <tr class="<%= task[3] %>"><th><%= task[0] %></th><th><%= task[1] %></th><th><%= task[2] %></th></tr>
+            <% } %>
+        </table>
+    <% } %>
 </div>
 
 <br><br>
