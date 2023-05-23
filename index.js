@@ -156,9 +156,11 @@ app.post('/submitUser', async (req, res) => {
 			username: username,
 			email: email,
 			password: hashedPassword,
+			studySchedule: [],
 		});
 		console.log("Inserted user");
 		req.session.authenticated = true;
+		req.session.email = email;
 		req.session.username = username;
 		req.session.cookie.maxAge = expireTime;
 		var html = "successfully created user";
@@ -241,6 +243,7 @@ app.post('/loggingin', async (req, res) => {
 
 		console.log("correct password");
 		req.session.authenticated = true;
+		req.session.email = email;
 		req.session.username = result[0].username;
 		req.session.cookie.maxAge = expireTime;
 		req.session.user_type = result[0].user_type;
@@ -531,7 +534,8 @@ app.post('/generate-htmls', async (req, res) => {
 
 
 app.get("/studyHabits", sessionValidation, (req, res) => {
-	res.render("studyHabitsIntro");
+	const studySchedule = await userCollection.find({ email: req.session.email }).project({ studySchedule: 1, _id: 1 }).toArray()[0].studySchedule;
+	res.render("studyHabitsIntro", {studySchedule: studySchedule});
 })
 app.get("/studyHabitsQ1", sessionValidation, (req, res) => {
 	res.render("studyHabitsQ1");
@@ -712,11 +716,14 @@ app.get("/studyHabitsResult", sessionValidation, (req, res) => {
 		const taskType = (task.isPrp) ? "peripheralTask" : ((task.time >= 24) ? "lateTask" : ((task.name == "Break") ? "breakTask" : "schoolTask"));
 		result.push([to12HourTimeStr(task.time), correctedTaskName, toDurStr(task.dur), taskType]);
 	}
+	req.session.studySchedule = result;
 
 	res.render("studyHabitsResult", {result});
 })
 app.get("/saveStudyHabitsSchedule", (req, res) => {
 	// Kavindail will implement saving of the study habits schedule (save the results array above around 11 lines above this line)
+	// Ali is implementig it now
+	await userCollection.updateOne({ email: req.sesssion.email }, { $set: { studySchedule: req.session.studySchedule } });
 })
 
 app.get("/logout", (req, res) => {
