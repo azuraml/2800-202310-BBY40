@@ -426,59 +426,35 @@ app.get("/resources", (req, res) => {
 })
 
 
-
-// second ai bot, attempt to create dynamic html page
-/*
-const openai = new OpenAIApi(configuration);
-
-  
-  
-	// Route to generate and serve dynamic HTML
-app.get('/generate-html', async (req, res) => {
+app.post('/save-learning-style', async (req, res) => {
 	try {
-		const response = await openai.createCompletion({
-		  model: 'text-davinci-003',
-		  prompt: 'Generate HTML content',
-		  maxTokens: 100,
-		});
-	
-		const generatedText = response.data.choices[0].text;
-		res.status(200).send({
-		  bot: generatedText,
-		});
-		const html = `<html><body>${generatedText}</body></html>`;
-		return html;
-	  } catch (error) {
-		console.error('Error:', error);
-		throw error;
+	  const learningStyle = req.body.learningStyle;
+	  const username = req.session.username;
+  
+	  console.log('Received learning style:', learningStyle);
+	  console.log('Username:', username);
+  
+	  // Check if the learningStyle and username values are valid
+	  if (!learningStyle || !username) {
+		throw new Error('Invalid learningStyle or username');
 	  }
-	});
-
-
-
-
-app.post('/generate-htmls', async (req, res) => {
-	try {
-	  const response = await openai.createCompletion({
-		model: 'text-davinci-003',
-		prompt: 'Generate HTML content',
-		maxTokens: 100,
-	  });
   
-	  const generatedText = response.data.choices[0].text;
-	  res.status(200).send({
-		bot: generatedText,
-	  });
-	  const html = `<html><body>${generatedText}</body></html>`;
-	  return html;
+	  // Update the learningStyle for the specific user in the userCollection
+	  const result = await userCollection.updateOne({ username: username }, { $set: { learningStyle: learningStyle } });
+  
+	  if (result.modifiedCount === 1) {
+		console.log('Learning style updated successfully');
+		res.sendStatus(200); // Send a response indicating success
+	  } else {
+		console.log('Learning style update failed');
+		res.sendStatus(500); // Send a response indicating failure
+	  }
 	} catch (error) {
-	  console.error('Error:', error);
-	  throw error;
+	  console.error('Error saving learning style:', error);
+	  res.sendStatus(500); // Send a response indicating failure
 	}
-  
-});
+  });
 
-*/
 
 
 
