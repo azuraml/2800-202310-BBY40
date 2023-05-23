@@ -54,6 +54,7 @@ app.use("/", (req, res, next) => {
 	next();
 });
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 var mongoStore = MongoStore.create({
 	mongoUrl: `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/sessions`,
