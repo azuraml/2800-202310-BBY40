@@ -157,9 +157,11 @@ app.post('/submitUser', async (req, res) => {
 			username: username,
 			email: email,
 			password: hashedPassword,
+			studySchedule: [],
 		});
 		console.log("Inserted user");
 		req.session.authenticated = true;
+		req.session.email = email;
 		req.session.username = username;
 		req.session.cookie.maxAge = expireTime;
 		var html = "successfully created user";
@@ -242,6 +244,7 @@ app.post('/loggingin', async (req, res) => {
 
 		console.log("correct password");
 		req.session.authenticated = true;
+		req.session.email = email;
 		req.session.username = result[0].username;
 		req.session.cookie.maxAge = expireTime;
 		req.session.user_type = result[0].user_type;
@@ -507,8 +510,10 @@ app.post('/save-learning-style', async (req, res) => {
 
 
 
-app.get("/studyHabits", sessionValidation, (req, res) => {
-	res.render("studyHabitsIntro");
+app.get("/studyHabits", sessionValidation, async (req, res) => {
+	const studySchedule = (await userCollection.find({ username: req.session.username }).project({ studySchedule: 1, _id: 1 }).toArray())[0].studySchedule;
+	console.log(studySchedule);
+	res.render("studyHabitsIntro", {studySchedule: studySchedule});
 })
 app.get("/studyHabitsQ1", sessionValidation, (req, res) => {
 	res.render("studyHabitsQ1");
@@ -690,10 +695,13 @@ app.get("/studyHabitsResult", sessionValidation, (req, res) => {
 		result.push([to12HourTimeStr(task.time), correctedTaskName, toDurStr(task.dur), taskType]);
 	}
 
+	req.session.studySchedule = result;
+
 	res.render("studyHabitsResult", {result});
 })
-app.get("/saveStudyHabitsSchedule", (req, res) => {
-	// Kavindail will implement saving of the study habits schedule (save the results array above around 11 lines above this line)
+app.get("/saveStudyHabitsSchedule", async (req, res) => {
+	await userCollection.updateOne({ username: req.session.username}, { $set: { studySchedule: req.session.studySchedule } });
+	res.redirect("/studyHabits");
 })
 
 app.get("/logout", (req, res) => {
