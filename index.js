@@ -247,7 +247,7 @@ app.post('/loggingin', async (req, res) => {
 		req.session.username = result[0].username;
 		req.session.cookie.maxAge = expireTime;
 		req.session.user_type = result[0].user_type;
-		sendPostRequest(result[0].username);
+		//sendPostRequest(result[0].username);
 		res.redirect("/members");
 
 	} else {
