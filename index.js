@@ -244,11 +244,10 @@ app.post('/loggingin', async (req, res) => {
 
 		console.log("correct password");
 		req.session.authenticated = true;
-		req.session.email = email;
 		req.session.username = result[0].username;
 		req.session.cookie.maxAge = expireTime;
 		req.session.user_type = result[0].user_type;
-
+		sendPostRequest(result[0].username);
 		res.redirect("/members");
 
 	} else {
