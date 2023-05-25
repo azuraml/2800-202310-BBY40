@@ -1,8 +1,9 @@
-# 2800-202310-BBY40
+# Success Web
 
-<h1>Success Web</h1>
-
-<p>S</p>
+<h1>Project Description</h1>
+<p>Our team, BBY-40 is developing a study support app to promote
+equity by empowering students at a higher risk of dropping out due to
+socioeconomic status, race, and academic performance.</p>
 
 <h1>Technologies</h1>
 <p>In the development of SuccessWeb, we used a range of technologies to ensure a seamless and efficient user experience. For the front-end design, we utilized JavaScript, EJS, HTML, and CSS, and DALL-E for images creating an intuitive and user-friendly interface.
@@ -11,3 +12,21 @@ On the back-end, we leveraged Python web scraping frameworks, including Scrap.py
 
 To ensure reliable and efficient hosting for our application, we chose Qoddi, a web application hosting provider known for its performance and scalability. These technologies afford us the ability to deliver a high-quality educational support application to our users.
 </p>
+
+
+
+<h1>Our AI experience</h1>
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<h1>Contact Info</h1>
+<li>
+<ul>kdail@my.bcit.ca</ul>
+<ul></ul>
+<ul></ul>
+</li>
