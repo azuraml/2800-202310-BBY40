@@ -77,9 +77,9 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
   try {
     let botResponse = '';
-    const username = req.body.username;
+   // const username = req.body.username;
 
-    const prompt =  + req.body.prompt `refer to the users name in following responses you give based on the first prompt by the user` ;
+    const prompt =  + req.body.prompt  ;
     console.log('Name of user:', username);
 
     // Retrieve the conversation history for the specific user
@@ -90,7 +90,7 @@ app.post('/', async (req, res) => {
     // Check if conversation history exists for the user
     if (conversationHistory.length === 0) {
       // Set initial response if no conversation exists
-      botResponse = `Hi ${username}, I am your personal tutor named Jacob. I can help you create a learning plan.`;
+      botResponse = `Hi, I am your personal tutor named Jacob. I can help you create a learning plan.`;
     } else {
       const response = await openai.createCompletion({
         model: 'text-davinci-003',
@@ -108,15 +108,15 @@ app.post('/', async (req, res) => {
     }
 
     // Insert user input and AI response into the MongoDB collection
-    const userEntry = { role: 'user', content: prompt, username: username };
-    const tutorEntry = { role: 'tutor', content: botResponse, username: username };
+    const userEntry = { role: 'user', content: prompt,  };
+    const tutorEntry = { role: 'tutor', content: botResponse, };
     await collection.insertOne(userEntry);
     await collection.insertOne(tutorEntry);
 
     // Reset conversation history after 20 interactions
-    const count = await collection.countDocuments({  });
+    const count = await collection.countDocuments();
     if (count >= 40) {
-      await collection.deleteMany({ });
+      await collection.deleteMany();
     }
 
     res.status(200).send({
