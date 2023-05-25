@@ -84,7 +84,7 @@ app.post('/', async (req, res) => {
 
     // Retrieve the conversation history for the specific user
     const conversationHistory = await collection
-      .find({ username: username })
+      .find({ })
       .toArray();
 
     // Check if conversation history exists for the user
@@ -114,9 +114,9 @@ app.post('/', async (req, res) => {
     await collection.insertOne(tutorEntry);
 
     // Reset conversation history after 20 interactions
-    const count = await collection.countDocuments({ username: username });
+    const count = await collection.countDocuments({  });
     if (count >= 40) {
-      await collection.deleteMany({ username: username });
+      await collection.deleteMany({ });
     }
 
     res.status(200).send({
