@@ -79,7 +79,7 @@ app.post('/', async (req, res) => {
     let botResponse = '';
     const username = req.body.username;
 
-    const prompt = req.body.prompt;
+    const prompt = "refer to the users name" + req.body.prompt;
     console.log('Name of user:', username);
 
     // Retrieve the conversation history for the specific user
