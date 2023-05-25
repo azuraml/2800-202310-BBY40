@@ -4,8 +4,7 @@ import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import bodyParser from'body-parser';
-import MongoDBSessionStore from 'connect-mongodb-session';
+
 dotenv.config();
 
 /* secret information section */
@@ -26,13 +25,18 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 const app = express();
+app.use(cors());
+app.use(express.json());
+// Conversation history storage
+const collection = client.db(mongodb_database).collection('conversation');
 
 var mongoStore = MongoStore.create({
   mongoUrl: `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/sessions`,
   crypto: {
-		secret: mongodb_session_secret,
-	},
+    secret: mongodb_session_secret,
+  },
 });
+
 app.use(
   session({
     secret: node_session_secret,
@@ -42,31 +46,8 @@ app.use(
   })
 );
 
-app.use(cors());
-app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.urlencoded({ extended: false })); // Add this line before express.json()
-
-app.use(express.json());
-
-// Conversation history storage
-
-app.use(bodyParser.json());
-const collection = client.db(mongodb_database).collection('conversation');
 
 
-app.use((req, res, next) => {
-  console.log('Session:', req.session);
-  next();
-});
-
-/*
-app.post('/login', (req, res) => {
-  const username = req.body.username;
-  req.session.sessionData = { username: username }; // Store the username in the session as JSON string
-  res.status(200).send({ message: 'Logged in successfully.' });
-  console.log(username, req.session.sessionData.username); // Access the username from the session data
-});
-*/
 
 
 app.get('/', async (req, res) => {
@@ -74,29 +55,24 @@ app.get('/', async (req, res) => {
     message: 'Hello from Codex',
   });
 });
+
 app.post('/', async (req, res) => {
   try {
+    const prompt = req.body.prompt;
+    
     let botResponse = '';
-   // const username = req.body.username;
+    
+    // Get conversation history from MongoDB
+    const conversationHistory = await collection.find().toArray();
 
-    const prompt =  + req.body.prompt  ;
-    console.log('Name of user:', username);
-
-    // Retrieve the conversation history for the specific user
-    const conversationHistory = await collection
-      .find()
-      .toArray();
-
-    // Check if conversation history exists for the user
+    // Check if conversation history exists
     if (conversationHistory.length === 0) {
       // Set initial response if no conversation exists
-      botResponse = `Hi, I am your personal tutor named Jacob. I can help you create a learning plan.`;
+      botResponse = "Hi, I am your personal tutor named Jacob.";
     } else {
       const response = await openai.createCompletion({
         model: 'text-davinci-003',
-        prompt: conversationHistory
-          .map(entry => `${entry.role}: ${entry.content}`)
-          .join('\n') + '\nuser: ' + prompt,
+        prompt: conversationHistory.map(entry => `${entry.role}: ${entry.content}`).join('\n') + '\nuser: ' + prompt,
         temperature: 0.5,
         max_tokens: 3000,
         top_p: 1.0,
@@ -107,16 +83,15 @@ app.post('/', async (req, res) => {
       botResponse = response.data.choices[0].text;
     }
 
-    // Insert user input and AI response into the MongoDB collection
-    const userEntry = { role: 'user', content: prompt,  };
-    const tutorEntry = { role: 'tutor', content: botResponse, };
-    await collection.insertOne(userEntry);
-    await collection.insertOne(tutorEntry);
+    // Insert user input and AI response into MongoDB
+    const userEntry = { role: 'user', content: prompt };
+    const tutorEntry = { role: 'tutor', content: botResponse };
+    await collection.insertMany([userEntry, tutorEntry]);
 
     // Reset conversation history after 20 interactions
     const count = await collection.countDocuments();
     if (count >= 40) {
-      await collection.deleteMany();
+      await collection.deleteMany({});
     }
 
     res.status(200).send({
@@ -127,8 +102,6 @@ app.post('/', async (req, res) => {
     res.status(500).send({ error });
   }
 });
-
-
 
 
 app.get('/reset', async (req, res) => {
