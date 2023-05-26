@@ -58,16 +58,8 @@ app.use((req, res, next) => {
   console.log('Session:', req.session);
   next();
 });
-app.post('/session', (req, res) => {
-  const username = req.body.username;
 
-  // Process the session data as needed
-  req.session.authenticated = true;
-  req.session.usernames = req.body.username;
-  console.log('Received session data:', req.session.usernames);
 
-  res.sendStatus(200); // Send a response indicating success
-});
 
 
 
@@ -79,10 +71,10 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
-    const prompt ="Can you create me a learning plan for " + req.body.prompt +" also refer to the user's name" ;
+    const prompt ="Can you create me a learning plan for " + req.body.prompt  ;
     let botResponse = '';
-    const username = req.body.username;
-    console.log('name of user:', req.body.username);
+    
+    console.log('name of user:', req.body.username, username1);
     
     // Get conversation history from MongoDB
     const conversationHistory = await collection.find().toArray();
@@ -90,7 +82,7 @@ app.post('/', async (req, res) => {
     // Check if conversation history exists
     if (conversationHistory.length === 0) {
       // Set initial response if no conversation exists
-      botResponse = `Hi ${username}, I am your personal tutor named Jacob.`;
+      botResponse = `Hi, I am your personal tutor named Jacob.`;
     } else {
       const response = await openai.createCompletion({
         model: 'text-davinci-003',
