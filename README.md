@@ -13,8 +13,63 @@ On the back-end, we leveraged Python web scraping frameworks, including <b>Scrap
 To ensure reliable and efficient hosting for our application, we chose <b>Qoddi</b>, a web application hosting provider known for its performance and scalability. These technologies afford us the ability to deliver a high-quality educational support application to our users.
 </p>
 
+<h1>Listing of File Contents of folder </h1>
+<p>Stored in Directory.txt<p>
+
+<h1>How to install and run the project </h1>
+<p>
+1. 	What does the developer need to install:
+
+      a.language(s)
+        python, html, css, javascript
+
+      b.IDEs
+      Visual studio code
+
+      c.Database(s)
+      MongoDB
+     
+      d.Other software
+      Scrap.py
+
+2.	Which 3rd party APIs and frameworks does the developer need to download?
+
+      Open AI API and Bootstrap.
+
+3.	Do they need any API keys?
+      
+      Yes, from open ai. After creating an account you will be given a 5 dollar credit after that you need to put in your credit card details to use their services.
+
+4.	In which order should they install things? Does installation location matter?
+       
+       The order is not important but the installation location of the packages is important. There are two different backend servers 1 for the AI and 1 for the web application. The  backend for the ai is a file named server.js.
+
+5.	Include detailed configuration instructions.
+
+       They should in general install things in the repository. In the server directory(separate backend for AI) they should install CORS and the same packages used for the main server running from index.js except the axios package. 
+
+        The Server directory should be hosted on a qoddi with a ssl use the xs app option.
+        Also when qoddi asks what respository folder type in /Server.
+
+        We hosted the front end of our AI seperately as well. The Client directoy is the front end of our AI. It was hosted on Vercel. We have our client directory being hosted from a different repo but copied the contents of that folder into this repo. It is not neccessary to have it on a seperate repo. 
+
+6.	Include a link to the testing plan you have completed so the new developer can see your testing history and maybe contribute to a minor bugfix!
+        https://docs.google.com/spreadsheets/d/1RvvJisP5UUtd_VN5RaxJ2k9IijzUu53fUqnGk9s0D4I/edit?usp=sharing
+</p>
+
+<h1>How to use product features</h1>
+  The AI chatbot can be used for a diversity of things such as creating a learning plan for you. We also have______________________________
 
 
+<h1>Credits,References,Licenses</h1>
+
+ * Bootstrap v4.0.0 (https://getbootstrap.com)
+ * Copyright (c) 2011-2023 The Bootstrap Authors
+ * Licensed under the MIT License (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ 
+ * https://www.youtube.com/watch?v=2FeymQoKvrk&t=3271s by javascript mastery
+ * https://github.com/adrianhajdin/project_openai_codex 
+  
 <h1>Our AI experience</h1>
 <p>A.)Yes we used AI to help create our app. We leveraged tools like ChatGPT to analyze our other team members code for example so we could better understand it to work on it. We also used ChatGPT to assist us in creating functions which were simple but tedious and verbose to create. We also used tools like DALL-E which is an AI image generator to generate all of the images for the app.</p>
 
@@ -27,6 +82,6 @@ To ensure reliable and efficient hosting for our application, we chose <b>Qoddi<
 <h1>Contact Info</h1>
 <li>
 <ul>kdail@my.bcit.ca</ul>
-<ul></ul>
+<ul>ekaila1@my.bcit.ca</ul>
 <ul></ul>
 </li>

@@ -15,7 +15,7 @@ const url = require("url");
 const saltRounds = 12;
 const nodemailer = require('nodemailer');
 const axios = require('axios');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
 
 const app = express();
 
@@ -318,7 +318,7 @@ app.post("/sendemail", async (req, res) => {
 		from: 'successwebnoreply@gmail.com',
 		to: result[0].email,
 		subject: 'Reset Password link',
-		html: '<h1>Caution Read Message Carefully</h1><p>Please do not share link with anyone.<a href="http://tivujfmelq.eu11.qoddiapp.com/reset">reset password </a></p>'
+		html: '<h1>Caution Read Message Carefully</h1><p>Please do not share link with anyone and do not reply to this email.<a href="http://tivujfmelq.eu11.qoddiapp.com/reset">reset password </a></p>'
 	};
 
 	transporter.sendMail(mailOptions, function (error, info) {
