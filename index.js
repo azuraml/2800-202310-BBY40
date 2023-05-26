@@ -15,7 +15,7 @@ const url = require("url");
 const saltRounds = 12;
 const nodemailer = require('nodemailer');
 const axios = require('axios');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
 
 const app = express();
 
@@ -54,6 +54,7 @@ app.use("/", (req, res, next) => {
 	next();
 });
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 var mongoStore = MongoStore.create({
 	mongoUrl: `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/sessions`,
@@ -156,9 +157,11 @@ app.post('/submitUser', async (req, res) => {
 			username: username,
 			email: email,
 			password: hashedPassword,
+			studySchedule: [],
 		});
 		console.log("Inserted user");
 		req.session.authenticated = true;
+		req.session.email = email;
 		req.session.username = username;
 		req.session.cookie.maxAge = expireTime;
 		var html = "successfully created user";
@@ -244,7 +247,7 @@ app.post('/loggingin', async (req, res) => {
 		req.session.username = result[0].username;
 		req.session.cookie.maxAge = expireTime;
 		req.session.user_type = result[0].user_type;
-
+		//sendPostRequest(result[0].username);
 		res.redirect("/members");
 
 	} else {
@@ -315,7 +318,7 @@ app.post("/sendemail", async (req, res) => {
 		from: 'successwebnoreply@gmail.com',
 		to: result[0].email,
 		subject: 'Reset Password link',
-		html: '<h1>Caution Read Message Carefully</h1><p>Please do not share link with anyone.<a href="http://tivujfmelq.eu11.qoddiapp.com/reset">reset password </a></p>'
+		html: '<h1>Caution Read Message Carefully</h1><p>Please do not share link with anyone and do not reply to this email.<a href="http://tivujfmelq.eu11.qoddiapp.com/reset">reset password </a></p>'
 	};
 
 	transporter.sendMail(mailOptions, function (error, info) {
@@ -426,59 +429,34 @@ app.get("/resources", (req, res) => {
 })
 
 
-
-// second ai bot, attempt to create dynamic html page
-/*
-const openai = new OpenAIApi(configuration);
-
-  
-  
-	// Route to generate and serve dynamic HTML
-app.get('/generate-html', async (req, res) => {
+app.post('/save-learning-style', async (req, res) => {
 	try {
-		const response = await openai.createCompletion({
-		  model: 'text-davinci-003',
-		  prompt: 'Generate HTML content',
-		  maxTokens: 100,
-		});
-	
-		const generatedText = response.data.choices[0].text;
-		res.status(200).send({
-		  bot: generatedText,
-		});
-		const html = `<html><body>${generatedText}</body></html>`;
-		return html;
-	  } catch (error) {
-		console.error('Error:', error);
-		throw error;
+	  const learningStyle = req.body.learningStyle;
+	  const username = req.session.username;
+  
+	  console.log('Received learning style:', learningStyle);
+	  console.log('Username:', username);
+  
+	  // Check if the learningStyle and username values are valid
+	  if (!learningStyle || !username) {
+		throw new Error('Invalid learningStyle or username');
 	  }
-	});
-
-
-
-
-app.post('/generate-htmls', async (req, res) => {
-	try {
-	  const response = await openai.createCompletion({
-		model: 'text-davinci-003',
-		prompt: 'Generate HTML content',
-		maxTokens: 100,
-	  });
   
-	  const generatedText = response.data.choices[0].text;
-	  res.status(200).send({
-		bot: generatedText,
-	  });
-	  const html = `<html><body>${generatedText}</body></html>`;
-	  return html;
+	  // Update the learningStyle for the specific user in the userCollection
+	  const result = await userCollection.updateOne({ username: username }, { $set: { learningStyle: learningStyle } });
+  
+	  if (result.modifiedCount === 1) {
+		console.log('Learning style updated successfully');
+		res.sendStatus(200); // Send a response indicating success
+	  } else {
+		console.log('Learning style update failed');
+		res.sendStatus(500); // Send a response indicating failure
+	  }
 	} catch (error) {
-	  console.error('Error:', error);
-	  throw error;
+	  console.error('Error saving learning style:', error);
+	  res.sendStatus(500); // Send a response indicating failure
 	}
-  
-});
-
-*/
+  });
 
 
 
@@ -530,8 +508,11 @@ app.post('/generate-htmls', async (req, res) => {
 
 
 
-app.get("/studyHabits", sessionValidation, (req, res) => {
-	res.render("studyHabitsIntro");
+
+app.get("/studyHabits", sessionValidation, async (req, res) => {
+	const studySchedule = (await userCollection.find({ username: req.session.username }).project({ studySchedule: 1, _id: 1 }).toArray())[0].studySchedule;
+	console.log(studySchedule);
+	res.render("studyHabitsIntro", {studySchedule: studySchedule});
 })
 app.get("/studyHabitsQ1", sessionValidation, (req, res) => {
 	res.render("studyHabitsQ1");
@@ -713,10 +694,13 @@ app.get("/studyHabitsResult", sessionValidation, (req, res) => {
 		result.push([to12HourTimeStr(task.time), correctedTaskName, toDurStr(task.dur), taskType]);
 	}
 
+	req.session.studySchedule = result;
+
 	res.render("studyHabitsResult", {result});
 })
-app.get("/saveStudyHabitsSchedule", (req, res) => {
-	// Kavindail will implement saving of the study habits schedule (save the results array above around 11 lines above this line)
+app.get("/saveStudyHabitsSchedule", async (req, res) => {
+	await userCollection.updateOne({ username: req.session.username}, { $set: { studySchedule: req.session.studySchedule } });
+	res.redirect("/studyHabits");
 })
 
 app.get("/logout", (req, res) => {

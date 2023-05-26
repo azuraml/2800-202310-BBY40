@@ -13,7 +13,12 @@
         white-space: nowrap;
     }
     table {
-        margin-left: 20px;
+        margin: auto;
+        position: relative;
+        left: 10px;
+    }
+    #thinkingText {
+        margin: auto;
     }
 
     /* MODIFY HERE */
@@ -48,21 +53,39 @@
         <% } %>
     </table>
 
-    <p class="text-white mx-5 px-2 pt-5 text-start fw-bold">Here is some of the thinking behind the scheduling:</p>
-    <ul class="mx-5 px-5">
-        <li class="text-white text-start">The first school task of the day is a small one to warm you up for the later school tasks, which start large but get smaller!</li>
-        <li class="text-white text-start">School tasks are <span class="schoolTask">white</span>, breaks are <span class="breakTask">yellow</span>, and non-school tasks are <span class="peripheralTask">purple</span>.</li>
-        <li class="text-white text-start">Tasks that go past midnight are <span class="lateTask">red</span>. If you have any tasks like these, consider scheduling it for another day!</li>
-        <li class="text-white text-start">Larger school tasks (1 hour or longer) are broken into 1 hour chunks to help you work through them more effectively!</li>
-        <li class="text-white text-start">All school tasks have a break to help you stay more productive! Breaks go from 5-15 minutes depending on the size of the task.</li>
-    </ul>
+    <div id="thinkingText">
+        <p class="text-white pt-5 fw-bold">Here is some of the thinking behind the scheduling:</p>
+        <div class="text-center">
+            <p class="text-white px-4">The first school task of the day is a small one to warm you up for the later school tasks, which start large but get smaller!</p>
+            <p class="text-white px-4">School tasks are <span class="schoolTask">white</span>, breaks are <span class="breakTask">yellow</span>, and non-school tasks are <span class="peripheralTask">purple</span>.</p>
+            <p class="text-white px-4">Tasks that go past midnight are <span class="lateTask">red</span>. If you have any tasks like these, consider scheduling it for another day!</p>
+            <p class="text-white px-4">Larger school tasks (1 hour or longer) are broken into 1 hour chunks to help you work through them more effectively!</p>
+            <p class="text-white px-4">All school tasks have a break to help you stay more productive! Breaks go from 5-15 minutes depending on the size of the task.</p>
+        </div>
+    </div>
 
     <br><br><br>
-    <a class="btn btn-light btn-lg" href="/saveStudyHabitsSchedule">
+    <a id="saveScheduleBtn" class="btn btn-light btn-lg" href="/saveStudyHabitsSchedule">
         Save schedule
         <svg class="bi ms-1" width="20" height="20"><use xlink:href="#arrow-right-short"></use></svg>
     </a>
 </div>
+
+<!-- <div id="prompt">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: 0;">
+                <h4 class="modal-title">Alert!</h4>
+                <button type="button" class="close" onclick='document.querySelector("#prompt").hidden = true;'>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 id="promptBody">Your schedule was saved successfully! To access it go to the main Study Habits page (/studyHabits)</h5>
+            </div>
+        </div>
+    </div>
+</div> -->
 
 <br><br><br><br><br><br><br><br>
 <%- include("templates/footer") %>

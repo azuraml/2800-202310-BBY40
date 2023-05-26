@@ -1,161 +1,143 @@
-<%- include("templates/header", {cssPage: ""}) %> 
-<form  action='/addstudentinfo' method='post'> 
+<%- include("templates/header", {cssPage: "" }) %>
+  <form action='/addstudentinfo' method='post'>
 
-   
-  
-  
-          <div class="card card-registration my-4">
-            <div class="row g-0">
-            
-              <div class="col-xl-6">
-                <div class="card-body p-md-5 ">
-                  <h3 class="mb-5 text-uppercase" style="color:white;">Registration form</h3>
-  
-                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="form3Example1m">First name</label>
-                        <input type="text" placeholder="First Name"name="firstname" id="form3Example1m" class="form-control form-control-lg" />
-                 
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="form3Example1n">Last name</label>
-                        <input type="text"placeholder="Last Name" name="lastname" id="form3Example1n" class="form-control form-control-lg" />
-                  
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="form3Example1m1">Mother's name</label>
-                        <input type="text" placeholder="Mother's Name"id="form3Example1m1" name="mother" class="form-control form-control-lg" />
-            
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <label class="form-label" for="form3Example1n1">Father's name</label>
-                        <input type="text" placeholder="Father's Name"id="form3Example1n1" name="father" class="form-control form-control-lg" />
-                    
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form3Example8">Address</label>
-                    <input type="text"placeholder="Adress" id="form3Example8" name="address" class="form-control form-control-lg" />
-        
-                  </div>
-  
-                  <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-  
-                    <h6 class="mb-0 me-4" style="color:white">Gender: </h6>
-                    <br>
-  
-                    <div class="form-check form-check-inline mb-0 me-4">
-                      <label class="form-check-label" for="femaleGender">Female</label>
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                        value="female" />
-               
-                    </div>
-  
-                    <div class="form-check form-check-inline mb-0 me-4">
-                      <label class="form-check-label" for="maleGender">Male</label>
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
-                        value="male" />
-                   
-                    </div>
-  
-                    <div class="form-check form-check-inline mb-0">
-                      <label class="form-check-label" for="otherGender">Other</label>
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
-                        value="other" />
-                
-                    </div>
-  
-                  </div>
-  
-                 
-  
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form3Example9">Date of birth</label>
-                    <input type="text" placeholder="DOB" name="birth" id="form3Example9" class="form-control form-control-lg" />
-                
-                  </div>
-  
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form3Example99">Course</label>
-                    <input type="text" placeholder="Course" name="course" id="form3Example99" class="form-control form-control-lg" />
-              
-                  </div>
-  
-                  
-  
-                  <div class="d-flex justify-content-end pt-3">
-                    <button type="reset" class="btn text-black btn-light btn-lg">Reset all</button>
-                    <button type="submit" class="btn text-black btn-light btn-lg ms-2">Submit form</button>
-                  </div>
-  
+
+
+
+    <div class="card card-registration my-4">
+      <div class="row g-0">
+
+        <div class="col-xl-6">
+          <div class="card-body p-md-5 ">
+            <h3 class="mb-5 text-uppercase" style="color:white;">Registration form</h3>
+
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <label class="form-label" for="form3Example1m">First name</label>
+                  <input type="text" placeholder="First Name" name="firstname" id="form3Example1m"
+                    class="form-control form-control-lg" />
+
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <label class="form-label" for="form3Example1n">Last name</label>
+                  <input type="text" placeholder="Last Name" name="lastname" id="form3Example1n"
+                    class="form-control form-control-lg" />
+
                 </div>
               </div>
             </div>
-      
 
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <label class="form-label" for="form3Example1m1">Mother's name</label>
+                  <input type="text" placeholder="Mother's Name" id="form3Example1m1" name="mother"
+                    class="form-control form-control-lg" />
+
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <label class="form-label" for="form3Example1n1">Father's name</label>
+                  <input type="text" placeholder="Father's Name" id="form3Example1n1" name="father"
+                    class="form-control form-control-lg" />
+
+                </div>
+              </div>
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example8">Address</label>
+              <input type="text" placeholder="Adress" id="form3Example8" name="address"
+                class="form-control form-control-lg" />
+            </div>
+            <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+              <h6 class="mb-0 me-4" style="color:white">Gender: </h6>
+              <br>
+              <div class="form-check form-check-inline mb-0 me-4">
+                <label class="form-check-label" for="femaleGender">Female</label>
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                  value="female" />
+              </div>
+              <div class="form-check form-check-inline mb-0 me-4">
+                <label class="form-check-label" for="maleGender">Male</label>
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="male" />
+              </div>
+              <div class="form-check form-check-inline mb-0">
+                <label class="form-check-label" for="otherGender">Other</label>
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="other" />
+              </div>
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example9">Date of birth</label>
+              <input type="text" placeholder="DOB" name="birth" id="form3Example9"
+                class="form-control form-control-lg" />
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example99">Course</label>
+              <input type="text" placeholder="Course" name="course" id="form3Example99"
+                class="form-control form-control-lg" />
+            </div>
+            <div class="d-flex justify-content-end pt-3">
+              <button type="reset" class="btn text-black btn-light btn-lg">Reset all</button>
+              <button type="submit" class="btn text-black btn-light btn-lg ms-2">Submit form</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </form>
+  <%- include("templates/footer") %>
 
-</form>
-<%- include("templates/footer") %>
 
+    <style>
+      body {
+        height: 100vh;
+        color: white;
 
-<style>
-  body {
-      height: 100vh;
-      color: white;
+      }
 
-  }
+      .card {
+        background-color: black;
+      }
 
-  .card {
-      background-color: black;
-  }
+      .card-body {
+        color: white;
+      }
 
-  .card-body {
-      color: white;
-  }
+      .form-outline {
+        color: white;
+      }
 
-  .form-outline {
-      color: white;
-  }
+      .form-control {
+        background-color: black;
+        color: white;
+      }
 
-  .form-control {
-      background-color: black;
-      color: white;
-  }
+      .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.432);
+        font-size: 0.75em;
+      }
 
-  .form-control::placeholder { 
-      color: rgba(255, 255, 255, 0.432);
-      font-size:0.75em;
-  }
+      .form-control:focus {
+        background-color: black;
+        color: white;
+        box-shadow: none;
+      }
 
-  .form-control:focus {
-      background-color: black;
-      color: white;
-      box-shadow: none;
-  }
+      .form-label {
+        color: white;
+      }
 
-  .form-label {
-      color: white;
-  }
+      .form-check-label {
+        color: white;
+      }
 
-  .form-check-label {
-      color: white;
-  }
-
-  .btn {
-      color: white;
-      border: 1px solid white; /* Add border if you want */
-  }
-</style>
+      .btn {
+        color: white;
+        border: 1px solid white;
+        /* Add border if you want */
+      }
+    </style>
